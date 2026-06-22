@@ -1,5 +1,13 @@
 package types
 
+import "context"
+
+type NewApp struct {
+	ID   int
+	Href string
+	ctx  context.Context
+}
+
 type Application struct {
 	Name           string `yaml:"name" json:"name"`
 	DisplayName    string `yaml:"displayName" json:"displayName"`

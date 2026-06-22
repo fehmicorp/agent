@@ -31,6 +31,11 @@ func onClick(items *systray.MenuItem, id int) {
 }
 
 func handleTrayClick(Id int) {
+	if Id == 9999 {
+		log.Println("Exit menu option clicked. Shutting down tray...")
+		systray.Quit()
+		return
+	}
 	ctx := registry.GetContext(Id)
 	if ctx != nil {
 		runtime.WindowShow(ctx)

@@ -37,7 +37,7 @@ func AppLayout(id int) types.Layout {
 	if fn, ok := Get(id); ok {
 		return fn.Layout
 	}
-	return config.Layout{}
+	return types.Layout{}
 }
 
 func AppHidden(id int) bool {

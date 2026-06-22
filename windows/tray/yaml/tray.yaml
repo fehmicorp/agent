@@ -36,7 +36,7 @@ menu:
 
   - separator: true
 
-  - id: 99
+  - id: 9999
     title: Exit
     functionId: 9999
     enabled: true

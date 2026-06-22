@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/fehmicorp/agent/windows/config/registry"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -12,14 +13,23 @@ type App struct {
 }
 
 // NewApp creates a new App application struct
-func NewApp() *App {
+func NewApp(id int) *App {
 	return &App{
-		Id:   id,
+		ID:   id,
 		Href: AppRoute(id),
 	}
 }
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	registry.SetContext(a.Id, ctx)
+	registry.SetContext(a.ID, ctx)
+}
+
+func QuitApp(id int) {
+	ctx := registry.GetContext(id)
+	if ctx == nil {
+		return
+	}
+	registry.DeleteContext(id)
+	runtime.Quit(ctx)
 }
