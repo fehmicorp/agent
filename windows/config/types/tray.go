@@ -1,4 +1,4 @@
-package config
+package types
 
 type Tray struct {
 	Name        string `yaml:"name" json:"name"`

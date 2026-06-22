@@ -4,8 +4,8 @@ import (
 	"log"
 	"runtime"
 
+	"github.com/fehmicorp/agent/windows/config"
 	"github.com/fehmicorp/agent/windows/config/registry"
-	"github.com/fehmicorp/win_tray/internal/config"
 	"github.com/getlantern/systray"
 )
 

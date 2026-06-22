@@ -1,12 +1,11 @@
 package main
 
 import (
-	assets "github.com/fehmicorp/agent/windows/config/assets"
-	"github.com/fehmicorp/win_tray/internal/config"
+	assets types "github.com/fehmicorp/agent/windows/config"
 	"github.com/getlantern/systray"
 )
 
-var cfg *config.Tray
+var cfg *types.Tray
 
 func onReady() {
 	if cfg == nil {
