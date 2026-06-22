@@ -1,4 +1,4 @@
-module app
+module github.com/fehmicorp/agent/windows/app
 
 go 1.26.3
 
