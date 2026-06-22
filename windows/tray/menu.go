@@ -42,6 +42,7 @@ func handleTrayClick(Id int) {
 		runtime.WindowCenter(ctx)
 	} else {
 		go func(id int) {
+			PushNotification(Id)
 			log.Printf("Launching new window for ID: %d", id)
 		}(Id)
 	}

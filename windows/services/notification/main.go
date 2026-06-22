@@ -4,18 +4,13 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/go-toast/toast"
 )
 
-type Options struct {
-	Title    string
-	Message  string
-	IconPath string
-}
-
-func Push(opt Options) error {
+func Push(opt types.NotiOptions) error {
 	notification := toast.Notification{
-		AppID:   "Fehmi Agent",
+		AppID:   opt.AppId,
 		Title:   opt.Title,
 		Message: opt.Message,
 	}
