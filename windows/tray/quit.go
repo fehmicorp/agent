@@ -1,5 +1,7 @@
 package main
 
-func onExit() {
+import "log"
 
+func onExit() {
+	log.Println("tray closed")
 }

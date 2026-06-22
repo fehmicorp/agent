@@ -1,7 +1,7 @@
 package types
 
 type Tray struct {
-	Name        string `yaml:"name" json:"name"`
+	Name        string `yaml:"name" json:"name" env-default:"AgentTray"`
 	Title       string `yaml:"title" json:"title"`
 	Version     string `yaml:"version" json:"version"`
 	Tooltip     string `yaml:"tooltip" json:"tooltip"`
@@ -16,6 +16,6 @@ type Menu struct {
 	Tooltip   string `yaml:"tooltip" json:"tooltip"`
 	FuncId    int    `yaml:"functionId" json:"functionId"`
 	Separator bool   `yaml:"separator" json:"separator"`
-	Visible   bool   `yaml:"visible" json:"visible"`
-	Enabled   bool   `yaml:"enabled" json:"enabled"`
+	Visible   bool   `yaml:"visible" json:"visible" env-default:"true"`
+	Enabled   bool   `yaml:"enabled" json:"enabled" env-default:"true"`
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	assets "github.com/fehmicorp/agent/windows/config"
+	assets "github.com/fehmicorp/agent/windows/config/assets"
 	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/getlantern/systray"
 )
@@ -15,5 +15,5 @@ func onReady() {
 	systray.SetIcon(assets.Favicon)
 	systray.SetTitle(cfg.Title)
 	systray.SetTooltip(cfg.Tooltip)
-	populateMenu(cfg)
+	go populateMenu(cfg)
 }

@@ -2,11 +2,11 @@ package main
 
 import (
 	"log"
-	"runtime"
 
 	"github.com/fehmicorp/agent/windows/config/registry"
-	"github.com/fehmicorp/agent/windows/config/types"
+	types "github.com/fehmicorp/agent/windows/config/types"
 	"github.com/getlantern/systray"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 func populateMenu(cfg *types.Tray) {
