@@ -16,7 +16,7 @@ func NewApp(id int) *types.NewApp {
 	}
 }
 
-func (a *App) startup(ctx context.Context) {
+func (a *types.NewApp) startup(ctx context.Context) {
 	a.ctx = ctx
 	registry.SetContext(a.ID, ctx)
 }
