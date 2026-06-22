@@ -5,7 +5,7 @@ import "context"
 type NewApp struct {
 	ID   int
 	Href string
-	ctx  context.Context
+	Ctx  context.Context
 }
 
 type Application struct {
