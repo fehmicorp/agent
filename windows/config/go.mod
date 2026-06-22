@@ -1,3 +1,3 @@
-module github.com/fehmicorp/agent/windows/conf/registry
+module github.com/fehmicorp/agent/windows/config
 
 go 1.26.3
