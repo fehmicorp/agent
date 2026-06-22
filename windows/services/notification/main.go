@@ -8,9 +8,9 @@ import (
 	"github.com/go-toast/toast"
 )
 
-func Push(opt types.NotiOptions) error {
+func Push(opt *types.NotiOptions) error {
 	notification := toast.Notification{
-		AppID:   opt.AppId,
+		AppID:   "Fehmi Endpoint Agent",
 		Title:   opt.Title,
 		Message: opt.Message,
 	}

@@ -2,16 +2,33 @@ package main
 
 import (
 	"context"
+	"log"
 
+	"github.com/fehmicorp/agent/windows/config/load"
 	"github.com/fehmicorp/agent/windows/config/registry"
-	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-func RunApp(id int) {
+func main() {
+	var err error
+	cfg, err = load.App()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
+	err := RunApp(100)
+	if err != nil {
+		log.Fatalf("Error running Wails application: %v", err)
+	}
+}
+
+func Open(id int) {
+	log.Printf("Getting ID: %d", id)
+}
+
+func RunApp(id int) error {
 	app := NewApp(id)
 	return wails.Run(&options.App{
 		Title:            AppTitle(id),
@@ -30,7 +47,7 @@ func RunApp(id int) {
 	})
 }
 
-func AppStartup(app *types.NewApp) func(context.Context) {
+func AppStartup(app *App) func(context.Context) {
 	return func(ctx context.Context) {
 		app.startup(ctx)
 		if AppOnStartup(app.ID) {
@@ -44,7 +61,7 @@ func AppStartup(app *types.NewApp) func(context.Context) {
 	}
 }
 
-func AppBeforeClose(app *types.NewApp) func(context.Context) bool {
+func AppBeforeClose(app *App) func(context.Context) bool {
 	return func(ctx context.Context) bool {
 		if AppOnBeforeClose(app.ID) {
 			registry.DeleteContext(app.ID)

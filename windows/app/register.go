@@ -78,6 +78,15 @@ func AppOnStartup(id int) bool {
 	return false
 }
 
+func AppAssets(id int) embed.FS {
+	mu.RLock()
+	defer mu.RUnlock()
+	if fs, ok := assets[id]; ok {
+		return fs
+	}
+	return embed.FS{}
+}
+
 func AppOnBeforeClose(id int) bool {
 
 	if fn, ok := Get(id); ok {

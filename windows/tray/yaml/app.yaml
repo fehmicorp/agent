@@ -1,0 +1,12 @@
+functions:
+  - id: 1001
+    title: Fehmi Agent Dashboard
+    route: dashboard
+    layout:
+      w: 600
+      h: 400
+    hide: true
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true

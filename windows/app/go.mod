@@ -4,7 +4,7 @@ go 1.26.3
 
 require (
 	github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622195921-e564d808fe94
-	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622193237-920d646fe547
+	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6
 	github.com/wailsapp/wails/v2 v2.12.0
 )
 

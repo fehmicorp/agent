@@ -4,7 +4,7 @@ go 1.26.3
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
-	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622172751-de7a95348e0e // indirect
+	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6 // indirect
 	github.com/ilyakaznacheev/cleanenv v1.5.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
