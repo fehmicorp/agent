@@ -4,12 +4,12 @@ import (
 	"log"
 	"runtime"
 
-	"github.com/fehmicorp/agent/windows/config"
+	types "github.com/fehmicorp/agent/windows/config"
 	"github.com/fehmicorp/agent/windows/config/registry"
 	"github.com/getlantern/systray"
 )
 
-func populateMenu(cfg *config.Tray) {
+func populateMenu(cfg *types.Tray) {
 	for _, t := range cfg.Menu {
 		if t.Separator == true {
 			systray.AddSeparator()
