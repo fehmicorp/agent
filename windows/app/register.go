@@ -1,6 +1,10 @@
 package main
 
-import "sync"
+import (
+	"sync"
+
+	"github.com/fehmicorp/agent/windows/config/types"
+)
 
 var (
 	mu sync.RWMutex
@@ -13,7 +17,7 @@ func AppTitle(id int) string {
 	return ""
 }
 
-func Get(id int) (config.Functions, bool) {
+func Get(id int) (types.Window, bool) {
 	mu.RLock()
 	defer mu.RUnlock()
 	fn, ok := registry[id]
@@ -29,7 +33,7 @@ func AppTitle(id int) string {
 	return ""
 }
 
-func AppLayout(id int) config.Layout {
+func AppLayout(id int) types.Layout {
 	if fn, ok := Get(id); ok {
 		return fn.Layout
 	}
@@ -43,4 +47,11 @@ func AppHidden(id int) bool {
 	}
 
 	return false
+}
+
+func AppRoute(id int) string {
+	if fn, ok := Get(id); ok {
+		return fn.Route
+	}
+	return "/"
 }

@@ -1,12 +1,14 @@
 module app
 
-go 1.23.0
+go 1.26.3
 
 require github.com/wailsapp/wails/v2 v2.12.0
 
 require (
 	git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
+	github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622182452-924454ed2bd9 // indirect
+	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622181057-da3ceead170c // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
