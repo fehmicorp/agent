@@ -3,6 +3,7 @@ module github.com/fehmicorp/agent/windows/app
 go 1.26.3
 
 require (
+	github.com/fehmicorp/agent/windows/config/load v0.0.0-20260622203724-34fe23317338
 	github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622195921-e564d808fe94
 	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6
 	github.com/wailsapp/wails/v2 v2.12.0
@@ -12,7 +13,6 @@ require (
 	git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3 // indirect
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
-	github.com/fehmicorp/agent/windows/config/load v0.0.0-20260622200923-0e89146e57f6 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
