@@ -1,9 +1,14 @@
 package main
 
 import (
+	"context"
+
+	"github.com/fehmicorp/agent/windows/config/registry"
+	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 func RunApp(id int) {
@@ -23,4 +28,28 @@ func RunApp(id int) {
 			app,
 		},
 	})
+}
+
+func AppStartup(app *types.NewApp) func(context.Context) {
+	return func(ctx context.Context) {
+		app.startup(ctx)
+		if AppOnStartup(app.ID) {
+			registry.SetContext(app.ID, ctx)
+			ShowRoute(ctx, app.Href)
+			runtime.LogInfo(
+				ctx,
+				"Application Started",
+			)
+		}
+	}
+}
+
+func AppBeforeClose(app *types.NewApp) func(context.Context) bool {
+	return func(ctx context.Context) bool {
+		if AppOnBeforeClose(app.ID) {
+			registry.DeleteContext(app.ID)
+			return false
+		}
+		return false
+	}
 }

@@ -3,7 +3,7 @@ module github.com/fehmicorp/agent/windows/app
 go 1.26.3
 
 require (
-	github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622182452-924454ed2bd9
+	github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622195921-e564d808fe94
 	github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622193237-920d646fe547
 	github.com/wailsapp/wails/v2 v2.12.0
 )
@@ -38,5 +38,3 @@ require (
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 )
-
-// replace github.com/wailsapp/wails/v2 v2.12.0 => C:\Users\m_sam\go\pkg\mod
