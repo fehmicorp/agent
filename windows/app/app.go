@@ -4,17 +4,13 @@ import (
 	"context"
 
 	"github.com/fehmicorp/agent/windows/config/registry"
+	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-// App struct
-type App struct {
-	ctx context.Context
-}
-
 // NewApp creates a new App application struct
-func NewApp(id int) *App {
-	return &App{
+func NewApp(id int) *types.NewApp {
+	return &types.NewApp{
 		ID:   id,
 		Href: AppRoute(id),
 	}
