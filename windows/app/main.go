@@ -6,21 +6,20 @@ import (
 
 	"github.com/fehmicorp/agent/windows/config/load"
 	"github.com/fehmicorp/agent/windows/config/registry"
+	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
+var cfg *types.Window
+
 func main() {
 	var err error
-	cfg, err = load.App()
+	cfg, err = load.AppConfig()
 	if err != nil {
 		log.Fatalf("Failed to load configuration: %v", err)
-	}
-	err := RunApp(100)
-	if err != nil {
-		log.Fatalf("Error running Wails application: %v", err)
 	}
 }
 
