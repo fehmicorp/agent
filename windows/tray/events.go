@@ -15,7 +15,7 @@ func PushNotification(Id int) {
 	case 2:
 		log.Println("Inventory scan triggered...")
 		err := notification.Push(notification.Options{
-			AppId:    "Fehmi Endpoint Agent",
+			// AppId:    "Fehmi Endpoint Agent",
 			Title:    "Inventory Scan started",
 			Message:  "Fehmi agent is compiling system specs in the background.",
 			IconPath: "../config/assets/fav.ico",
