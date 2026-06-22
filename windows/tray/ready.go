@@ -2,7 +2,7 @@ package main
 
 import (
 	assets "github.com/fehmicorp/agent/windows/config"
-	types "github.com/fehmicorp/agent/windows/config"
+	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/getlantern/systray"
 )
 
