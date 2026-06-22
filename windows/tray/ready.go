@@ -1,7 +1,7 @@
 package main
 
 import (
-	assets "github.com/fehmicorp/win_tray/internal/asstes"
+	assets "github.com/fehmicorp/agent/windows/config/assets"
 	"github.com/fehmicorp/win_tray/internal/config"
 	"github.com/getlantern/systray"
 )

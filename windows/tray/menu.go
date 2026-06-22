@@ -1,12 +1,12 @@
 package main
 
 import (
+	"log"
+	"runtime"
+
+	"github.com/fehmicorp/agent/windows/config/registry"
 	"github.com/fehmicorp/win_tray/internal/config"
 	"github.com/getlantern/systray"
-)
-
-var (
-	Items []systray.MenuItem
 )
 
 func populateMenu(cfg *config.Tray) {
@@ -15,19 +15,28 @@ func populateMenu(cfg *config.Tray) {
 			systray.AddSeparator()
 		} else if t.Visible == true && t.Enabled == true {
 			Items := systray.AddMenuItem(t.Title, t.Tooltip)
+			onClick(Items, t.ID)
 		} else if t.Visible == true && t.Enabled == false {
 
 		}
 	}
 }
 
-func onClick(item *systray.MenuItem, Id int) {
+func onClick(Items *systray.MenuItem, Id int) {
 	for {
-		<-item.ClickedCh
+		<-Items.ClickedCh
 		handleTrayClick(Id)
 	}
 }
 
 func handleTrayClick(Id int) {
-	ctx := con
+	ctx := registry.GetContext(Id)
+	if ctx != nil {
+		runtime.WindowShow(ctx)
+		runtime.WindowCenter(ctx)
+	} else {
+		go func(id int) {
+			log.Printf("Launching new window for ID: %d", id)
+		}(Id)
+	}
 }
