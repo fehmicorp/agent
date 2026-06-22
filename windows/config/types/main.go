@@ -1,6 +1,6 @@
 package types
 
-type NewApp struct {
+type App struct {
 	App  Application `yaml:"app" json:"app"`
 	Tray Tray        `yaml:"tray" json:"tray"`
 }

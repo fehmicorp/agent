@@ -19,8 +19,3 @@ type Menu struct {
 	Visible   bool   `yaml:"visible" json:"visible" env-default:"true"`
 	Enabled   bool   `yaml:"enabled" json:"enabled" env-default:"true"`
 }
-
-type App struct {
-	App  Application `yaml:"app" json:"app"`
-	Tray Tray        `yaml:"tray" json:"tray"`
-}
