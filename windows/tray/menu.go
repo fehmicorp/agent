@@ -13,19 +13,20 @@ func populateMenu(cfg *types.Tray) {
 	for _, t := range cfg.Menu {
 		if t.Separator == true {
 			systray.AddSeparator()
-		} else if t.Visible == true && t.Enabled == true {
-			Items := systray.AddMenuItem(t.Title, t.Tooltip)
-			onClick(Items, t.ID)
-		} else if t.Visible == true && t.Enabled == false {
-
+		} else if t.Visible && t.Enabled {
+			items := systray.AddMenuItem(t.Title, t.Tooltip)
+			systray.SetTooltip(t.Tooltip)
+			go onClick(items, t.ID)
+		} else if t.Visible && !t.Enabled {
+			items := systray.AddMenuItem(t.Title, "")
+			items.Disable()
 		}
 	}
 }
 
-func onClick(Items *systray.MenuItem, Id int) {
-	for {
-		<-Items.ClickedCh
-		handleTrayClick(Id)
+func onClick(items *systray.MenuItem, id int) {
+	for range items.ClickedCh {
+		handleTrayClick(id)
 	}
 }
 

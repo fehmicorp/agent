@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	assets "github.com/fehmicorp/agent/windows/config/assets"
 	"github.com/fehmicorp/agent/windows/config/types"
 	"github.com/getlantern/systray"
@@ -14,6 +16,6 @@ func onReady() {
 	}
 	systray.SetIcon(assets.Favicon)
 	systray.SetTitle(cfg.Title)
-	systray.SetTooltip(cfg.Tooltip)
+	systray.SetTooltip(fmt.Sprintf("%s\n%s", cfg.Tooltip, cfg.Version))
 	go populateMenu(cfg)
 }

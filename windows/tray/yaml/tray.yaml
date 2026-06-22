@@ -1,0 +1,43 @@
+name: fehmi-tray
+title: Fehmi Agent
+version: v1.0
+tooltip: Fehmi Endpoint Agent
+
+menu:
+  - id: 1
+    title: Dashboard      
+    tooltip: Show Agent Dashboard
+    functionId: 1001
+    enabled: true
+    visible: true
+
+  - sperator: true
+
+  - id: 2
+    title: Sync Now
+    tooltip: Run Inventory Scan
+    functionId: 2001
+    enabled: true
+    visible: true
+
+  - id: 3
+    title: Status
+    tooltip: Show Agent Status
+    functionId: 2002
+    enabled: true
+    visible: true
+
+  - id: 4
+    title: Request Support
+    tooltip: Raise helpdesk support
+    functionId: 2003
+    enabled: false
+    visible: true
+
+  - separator: true
+
+  - id: 99
+    title: Exit
+    functionId: 9999
+    enabled: true
+    visible: true

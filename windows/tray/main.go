@@ -1,14 +1,17 @@
 package main
 
 import (
+	"log"
+
 	"github.com/fehmicorp/agent/windows/config/load"
 	"github.com/getlantern/systray"
 )
 
 func main() {
-	load.TrayConf()
-	// if err := tray.Init(); err != nil {
-	// 	log.Fatal(err)
-	// }
-	systray.Run(onReady, onReady)
+	var err error
+	cfg, err = load.TrayConf()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
+	systray.Run(onReady, onExit)
 }
