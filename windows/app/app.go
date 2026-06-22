@@ -12,7 +12,10 @@ type App struct {
 
 // NewApp creates a new App application struct
 func NewApp() *App {
-	return &App{}
+	return &App{
+		ID:   id,
+		Href: AppRoute(id),
+	}
 }
 
 // startup is called when the app starts. The context is saved
