@@ -1,5 +1,7 @@
 github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak=
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
+github.com/fehmicorp/agent/windows/config/assets v0.0.0-20260623054839-bcc8c8cfc1c9 h1:MhUsbVCzKmJdEPItsmzvu48b5z5hDgxoGRSnpQHhTz4=
+github.com/fehmicorp/agent/windows/config/assets v0.0.0-20260623054839-bcc8c8cfc1c9/go.mod h1:fPSwNme1vvm5WZJ8/TsMtR6uMTvga9aFnCk9Gb2Oho0=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622172751-de7a95348e0e h1:ScAjUTGdnln0DTUMYDx0R+/1DGeBl34JPpkbdNL1xfA=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622172751-de7a95348e0e/go.mod h1:3+/590qYxOiZhFL2HLOJi1cFVVaDrFd3qaSLN9JWEfk=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6 h1:3f7OBdtG8YOqQ56haSSiXyT+JyRsxtY+rdVHQAqO200=

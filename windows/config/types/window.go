@@ -1,21 +1,21 @@
 package types
 
 type Window struct {
-	Id          int    `yaml:"id"`
-	Title       string `yaml:"title"`
-	Route       string `yaml:"route"`
-	Layout      Layout `yaml:"layout"`
-	Hidden      bool   `yaml:"hide"`
-	Assets      Assets `yaml:"assets"`
-	Startup     bool   `yaml:"startup"`
-	BeforeClose bool   `yaml:"beforeClose"`
+	Id          int
+	Title       string
+	Route       string
+	Layout      Layout
+	Hidden      bool
+	Assets      Assets
+	Startup     bool
+	BeforeClose bool
 }
 
 type Layout struct {
-	Width  int `yaml:"w"`
-	Height int `yaml:"h"`
+	Width  int
+	Height int
 }
 
 type Assets struct {
-	icon string `yaml:"icon"`
+	Icon []byte
 }
