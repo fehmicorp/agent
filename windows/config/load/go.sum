@@ -2,16 +2,13 @@ github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/fehmicorp/agent/windows/config/assets v0.0.0-20260623054839-bcc8c8cfc1c9 h1:MhUsbVCzKmJdEPItsmzvu48b5z5hDgxoGRSnpQHhTz4=
 github.com/fehmicorp/agent/windows/config/assets v0.0.0-20260623054839-bcc8c8cfc1c9/go.mod h1:fPSwNme1vvm5WZJ8/TsMtR6uMTvga9aFnCk9Gb2Oho0=
-github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622172751-de7a95348e0e h1:ScAjUTGdnln0DTUMYDx0R+/1DGeBl34JPpkbdNL1xfA=
-github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622172751-de7a95348e0e/go.mod h1:3+/590qYxOiZhFL2HLOJi1cFVVaDrFd3qaSLN9JWEfk=
-github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6 h1:3f7OBdtG8YOqQ56haSSiXyT+JyRsxtY+rdVHQAqO200=
-github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6/go.mod h1:oJAPhjjLcDOM29C7iJUwnyHiQtug42PlPfdQ9BCvgbc=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260623054839-bcc8c8cfc1c9 h1:8rulVONOl4TQ+u1IpAC+GtuVklcLIrgkc21GoJGQfk8=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260623054839-bcc8c8cfc1c9/go.mod h1:oJAPhjjLcDOM29C7iJUwnyHiQtug42PlPfdQ9BCvgbc=
 github.com/ilyakaznacheev/cleanenv v1.5.0 h1:0VNZXggJE2OYdXE87bfSSwGxeiGt9moSR2lOrsHHvr4=
 github.com/ilyakaznacheev/cleanenv v1.5.0/go.mod h1:a5aDzaJrLCQZsazHol1w8InnDcOX0OColm64SlIi6gk=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
