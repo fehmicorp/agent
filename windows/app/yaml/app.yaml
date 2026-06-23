@@ -1,4 +1,4 @@
-functions:
+window:
   - id: 1001
     title: Dashboard
     route: dashboard
