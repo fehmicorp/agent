@@ -10,6 +10,8 @@ github.com/fehmicorp/agent/windows/config/load v0.0.0-20260622203724-34fe2331733
 github.com/fehmicorp/agent/windows/config/load v0.0.0-20260622203724-34fe23317338/go.mod h1:OUWl9cFoMDW0/5G4AT14LFTC0cIWx5CWM2/EIA2xq7w=
 github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622195921-e564d808fe94 h1:y713FRnTV6m28rLZBAjd+Hb02T2uArarf7NvxKPHPFc=
 github.com/fehmicorp/agent/windows/config/registry v0.0.0-20260622195921-e564d808fe94/go.mod h1:aIFEg/aNaGUqjJkeZyNtCEsKpxioxjetjjIS7mwm85w=
+github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6 h1:3f7OBdtG8YOqQ56haSSiXyT+JyRsxtY+rdVHQAqO200=
+github.com/fehmicorp/agent/windows/config/types v0.0.0-20260622200923-0e89146e57f6/go.mod h1:oJAPhjjLcDOM29C7iJUwnyHiQtug42PlPfdQ9BCvgbc=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260623052339-ce75d373e4ae h1:8PcavoaW7vPgNs3BlUSEFPKkacGcidRMkqcYL9zpA0M=
 github.com/fehmicorp/agent/windows/config/types v0.0.0-20260623052339-ce75d373e4ae/go.mod h1:oJAPhjjLcDOM29C7iJUwnyHiQtug42PlPfdQ9BCvgbc=
 github.com/go-ole/go-ole v1.3.0 h1:Dt6ye7+vXGIKZ7Xtk4s6/xVdGDQynvom7xCFEdWr6uE=

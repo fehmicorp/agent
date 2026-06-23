@@ -13,7 +13,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-var cfg *types.App
+var cfg *types.Window
 
 func main() {
 	var err error
@@ -21,14 +21,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
-	RegisterMany(*cfg.Window)
-	RunApp(1001)
-	RunApp(1002)
-	RunApp(1003)
-	RunApp(1004)
-	RunApp(1005)
-	RunApp(1006)
-	RunApp(1007)
 }
 
 func RunApp(id int) error {
