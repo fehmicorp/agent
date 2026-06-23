@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os/exec"
+	"path/filepath"
 
 	"github.com/fehmicorp/agent/windows/config/registry"
 	types "github.com/fehmicorp/agent/windows/config/types"
@@ -46,4 +49,17 @@ func handleTrayClick(Id int) {
 			log.Printf("Launching new window for ID: %d", id)
 		}(Id)
 	}
+}
+
+func LaunchApp(id int) error {
+	exe := filepath.Join(
+		".",
+		"app.exe",
+	)
+	cmd := exec.Command(
+		exe,
+		"-window",
+		fmt.Sprintf("%d", id),
+	)
+	return cmd.Start()
 }
