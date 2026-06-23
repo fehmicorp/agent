@@ -9,8 +9,16 @@ import {
   AppRoute,
   getCurrentRoute,
 } from "./sections/registry";
+import data from "./sections/data";
+
+import { useSystemTheme } from "./utils/theme";
+import Navbar from "./component/Navbar";
+import Header from "./component/Header";
+import { bgMain } from "./utils/colour";
 
 export default function App() {
+
+  useSystemTheme();
 
   const [route, setRoute] =
     useState<AppRoute>(
@@ -44,18 +52,21 @@ export default function App() {
   const Page = routes[route];
 
   return (
-    <div className="h-screen bg-slate-950 text-white">
-
-      <Suspense
-        fallback={
-          <div className="p-4">
-            Loading...
-          </div>
+    <div className="h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-white">
+      <Suspense fallback={
+        <div className="p-4">
+          Loading...
+        </div>
         }
       >
-        <Page />
+        <div className={bgMain}>
+          {
+            route == "agent" ? <></> : <Header title={data.name} />
+          }          
+          <Page />
+        </div>
+        <Navbar />
       </Suspense>
-
     </div>
   );
 }
