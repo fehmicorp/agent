@@ -1,11 +1,83 @@
 functions:
   - id: 1001
-    title: Fehmi Agent Dashboard
+    title: Dashboard
     route: dashboard
     layout:
-      w: 600
-      h: 400
-    hide: true
+      w: 1280
+      h: 800
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+
+  - id: 1002
+    title: Scan
+    route: scan
+    layout:
+      w: 500
+      h: 500
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+  
+  - id: 1003
+    title: Agent
+    route: agent
+    layout:
+      w: 500
+      h: 500
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+  
+  - id: 1004
+    title: Logs
+    route: logs
+    layout:
+      w: 500
+      h: 500
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+  
+  - id: 1005
+    title: Software Catalogues
+    route: software
+    layout:
+      w: 500
+      h: 500
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+  
+  - id: 1006
+    title: Request Support
+    route: support
+    layout:
+      w: 500
+      h: 500
+    hide: false
+    assets:
+      icon: assets/dashboard.ico
+    startup: true
+    beforeClose: true
+  
+  - id: 1007
+    title: Admin
+    route: admin
+    layout:
+      w: 500
+      h: 500
+    hide: false
     assets:
       icon: assets/dashboard.ico
     startup: true

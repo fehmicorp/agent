@@ -21,10 +21,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
-}
-
-func Open(id int) {
-	log.Printf("Getting ID: %d", id)
+	Register(cfg)
+	RegisterMany(cfg)
+	RunApp(1001)
+	RunApp(1002)
+	RunApp(1003)
+	RunApp(1004)
+	RunApp(1005)
+	RunApp(1006)
+	RunApp(1007)
 }
 
 func RunApp(id int) error {

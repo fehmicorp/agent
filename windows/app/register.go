@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"embed"
+	"log"
 	"sync"
 
 	"github.com/fehmicorp/agent/windows/config/types"
@@ -45,11 +46,10 @@ func Get(id int) (types.Window, bool) {
 }
 
 func AppTitle(id int) string {
-
 	if fn, ok := Get(id); ok {
+		log.Printf("Title %s", fn.Title)
 		return fn.Title
 	}
-
 	return ""
 }
 
@@ -82,6 +82,7 @@ func AppAssets(id int) embed.FS {
 	mu.RLock()
 	defer mu.RUnlock()
 	if fs, ok := assets[id]; ok {
+		log.Printf("Assets: %s", fs)
 		return fs
 	}
 	return embed.FS{}
