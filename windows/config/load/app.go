@@ -1,15 +1,17 @@
 package load
 
 import (
-	"github.com/fehmicorp/agent/windows/config"
 	"github.com/fehmicorp/agent/windows/config/types"
 	"gopkg.in/yaml.v3"
 )
 
+//go:embed yaml/app.yaml
+var AppYAML []byte
+
 func AppConfig() ([]types.Window, error) {
 	var cfg []types.Window
 	err := yaml.Unmarshal(
-		config.AppYAML,
+		AppYAML,
 		&cfg,
 	)
 	if err != nil {
