@@ -1,7 +1,6 @@
 package load
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/fehmicorp/agent/windows/config/types"
@@ -13,7 +12,7 @@ func AppConfig() (*types.Window, error) {
 	var cfg types.Window
 	err = yaml.Unmarshal(cfgPath, &cfg)
 	if err != nil {
-		return nil, fmt.Errorf("cleanenv failed to load config: %w", err)
+		return nil, err
 	}
 	return &cfg, nil
 }
