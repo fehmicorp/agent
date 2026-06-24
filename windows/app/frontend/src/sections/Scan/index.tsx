@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { bgMain, cardMain, headingText, mutedText, spanText } from "../../utils/colour";
 import App from "../data";
-import Header from "../../component/Header";
 import { scan } from "../data/func";
 
 // This array is fine outside the component since it's just static data
@@ -117,26 +116,26 @@ export default function Scan(): React.JSX.Element {
             </p>
           </div>
 
-          <hr className="border-stone-300/10 my-4" />
+          <hr className="border-stone-700/10 dark:border-stone-300/10 my-4" />
 
           <div>
             <h3 className={`${spanText} text-xs tracking-wider opacity-60 mb-2`}>
               Scanning Log
             </h3>
-            <div className="bg-stone-900/40 rounded-xl p-3 font-mono text-[11px] h-48 overflow-y-auto space-y-1.5 flex flex-col">
+            <div className="bg-stone-300 dark:bg-stone-900/40 rounded-xl p-3 font-mono text-[11px] h-52 overflow-y-auto space-y-1.5 flex flex-col">
               <div className="space-y-1.5">
                 {logs.map((log, index) => {
-                  let textClass = "text-stone-400 opacity-80";
-                  if (log.type === "init" || log.type === "run") textClass = "text-sky-400";
-                  if (log.type === "ok") textClass = "text-emerald-400";
-                  if (log.type === "risk") textClass = "text-red-400 font-bold animate-pulse";
-                  if (log.type === "scan" && index === logs.length - 1) textClass = "text-amber-200 animate-pulse";
+                  let textClass = "dark:text-stone-400 text-stone-900 opacity-80";
+                  if (log.type === "init" || log.type === "run") textClass = "dark:text-sky-400 text-sky-700";
+                  if (log.type === "ok") textClass = "text-emerald-700 dark:text-emerald-400";
+                  if (log.type === "risk") textClass = "dark:text-red-400 text-red-600 font-bold animate-pulse";
+                  if (log.type === "scan" && index === logs.length - 1) textClass = "dark:text-amber-200 text-amber-800 animate-pulse";
 
                   return (
                     <div key={index} className={`${textClass} flex justify-between`}>
                       <span>{log.text}</span>
-                      {log.type === "ok" && <span className="opacity-60 text-xs">SUCCESS</span>}
-                      {log.type === "risk" && <span className="text-xs bg-red-500/20 px-1 rounded text-red-300">ALERT</span>}
+                      {log.type === "ok" && <span className="dark:opacity-60 opacity-80 text-xs dark:text-emerald-300 px-3 text-emerald-700">SUCCESS</span>}
+                      {log.type === "risk" && <span className="text-xs dark:bg-red-400/30 bg-red-600/30 px-2 rounded text-red-700 dark:text-red-300">ALERT</span>}
                     </div>
                   );
                 })}
@@ -194,8 +193,7 @@ function ScanButton({
     <button onClick={() => onScan(id)} className={`
       ${cardMain} group relative rounded-2xl p-4 text-left overflow-hidden transition-all duration-500 ease-out hover:scale-[1.02]
       hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(59,130,246,0.15)]`}>
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br from-slate-900/50 via-blue-400/35 to-violet-500/50"/>
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-t from-white/5 via-transparent to-white/10"/>
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br from-slate-100/50 dark:from-slate-900/50 dark:via-blue-400/35 via-blue-400/35 dark:to-violet-500/50 to-violet-500/50"/>
       <div className="relative z-10">
         <h3 className="font-semibold">{title}</h3>
         <p className="text-xs opacity-70 mt-1">{desc}</p>

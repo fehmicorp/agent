@@ -14,7 +14,6 @@ import data from "./sections/data";
 import { useSystemTheme } from "./utils/theme";
 import Navbar from "./component/Navbar";
 import Header from "./component/Header";
-import { bgMain } from "./utils/colour";
 
 export default function App() {
 
@@ -59,11 +58,13 @@ export default function App() {
         </div>
         }
       >
-        <div className={bgMain}>
+        <div className="bg-stone-100 dark:bg-stone-950 min-h-screen">
           {
             route == "agent" ? <></> : <Header title={data.name} />
-          }          
-          <Page />
+          }
+          <div className="p-2 pb-14 overflow-hidden">
+            <Page />
+          </div>
         </div>
         <Navbar />
       </Suspense>

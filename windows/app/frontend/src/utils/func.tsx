@@ -80,11 +80,11 @@ export function Info({
   value: string;
 }) {
   return (
-    <div className="flex justify-between text-sm py-2 border-b border-stone-500/50">
+    <div className="flex justify-between py-2 text-[12px] border-b border-stone-400/50 dark:border-stone-600/50">
       <span className="text-stone-600 dark:text-stone-400">
         {title}
       </span>
-      <span className="text-stone-700/80 dark:text-stone-100/80">{value}</span>
+      <span className="text-stone-800 dark:text-stone-100/80">{value}</span>
     </div>
   );
 }
@@ -97,12 +97,12 @@ export function Status({
   value: boolean;
 }) {
   return (
-  <div className="flex justify-between py-2 text-sm border-b border-stone-500/50"> <span className="text-stone-600 dark:text-stone-400">{title}</span>
+  <div className="flex justify-between py-2 text-[12px] border-b border-stone-400/50 dark:border-stone-600/50"> <span className="text-stone-600 dark:text-stone-400">{title}</span>
     <span
       className={
         value
-          ? "text-green-400"
-          : "text-red-400"
+          ? "dark:text-emerald-400 text-emerald-600"
+          : "dark:text-red-400 text-red-600"
       }
     >
       {value ? "Enabled" : "Disabled"}

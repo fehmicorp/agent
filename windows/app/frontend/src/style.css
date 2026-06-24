@@ -17,7 +17,7 @@ body,
   }
 
   50% {
-    box-shadow: 0 10px 25px rgba(13, 242, 97, 0.35);
+    box-shadow: 0 5px 25px rgba(13, 242, 97, 0.50);
   }
 
   100% {
@@ -45,12 +45,18 @@ body,
   }
 
   50% {
-    box-shadow: 0 10px 25px rgba(253, 211, 0, 0.5);
+    box-shadow: 0 10px 25px rgba(253, 211, 0, 0.50);
   }
 
   100% {
     box-shadow: 0 0 5px rgba(239, 68, 68, 0.10);
   }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
 }
 
 .animate-heartbeat-green {

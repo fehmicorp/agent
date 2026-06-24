@@ -38,9 +38,8 @@ export default function Logs(): React.JSX.Element {
           <h2 className={spanText}>System Security Audit Logs</h2>
           <p className={`${mutedText} text-xs mt-0.5`}>Review historic system modifications, threats, and health check actions.</p>
         </div>
-
         {/* Filter Badges */}
-        <div className="flex bg-stone-900/40 border border-stone-200/10 p-1 rounded-xl text-xs font-medium">
+        <div className="flex bg-stone-300/40 dark:bg-stone-900/40 border border-stone-800/10 dark:border-stone-200/10 p-1 rounded-xl text-xs font-medium">
           {(['all', 'risk', 'ok', 'info'] as const).map((type) => (
             <button
               key={type}
@@ -48,7 +47,7 @@ export default function Logs(): React.JSX.Element {
               className={`px-3 py-1.5 rounded-lg capitalize transition-all ${
                 filter === type 
                   ? "bg-stone-800 text-white shadow-sm" 
-                  : "text-stone-400 hover:text-stone-200"
+                  : "dark:text-stone-400 text-stone-700 dark:text-stone-100 hover:bg-stone-500/10"
               }`}
             >
               {type === 'ok' ? 'Success' : type === 'risk' ? 'Risks' : type}
@@ -64,7 +63,7 @@ export default function Logs(): React.JSX.Element {
           placeholder="Search logs by title, category, or description..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-stone-950/20 text-stone-200 border border-stone-200/10 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-sky-500/50 transition-colors"
+          className="w-full bg-stone-200/70 dark:bg-stone-950/20 text-stone-800 dark:text-stone-200 border border-stone-800/10 dark:border-stone-200/10 rounded-xl px-4 py-2.5 text-xs focus:outline-none dark:focus:border-sky-500/50 focus:border-sky-500/50 transition-colors"
         />
       </div>
 
@@ -75,17 +74,17 @@ export default function Logs(): React.JSX.Element {
           {filteredLogs.length > 0 ? (
             filteredLogs.map((log) => {
               let typeDot = "bg-stone-500";
-              let textClass = "text-stone-300";
+              let textClass = "text-stone-600/80 dark:text-stone-300";
               
               if (log.type === "risk") {
                 typeDot = "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]";
-                textClass = "text-red-400 font-medium";
+                textClass = "text-red-600/80 dark:text-red-400 font-medium";
               } else if (log.type === "ok") {
                 typeDot = "bg-emerald-500";
-                textClass = "text-emerald-400";
+                textClass = "text-emerald-600/80 dark:text-emerald-400";
               } else if (log.type === "info") {
                 typeDot = "bg-sky-500";
-                textClass = "text-sky-400";
+                textClass = "text-sky-600/80 dark:text-sky-400";
               }
 
               return (
@@ -93,7 +92,6 @@ export default function Logs(): React.JSX.Element {
                   key={log.id} 
                   className="flex items-center justify-between py-1.5 px-3 rounded-lg hover:bg-stone-500/5 transition-colors border-b border-stone-200/5 gap-8"
                 >
-                  {/* Left section: Status Dot + Time + Category + Title */}
                   <div className="flex items-center gap-3">
                     <span className={`h-2 w-2 rounded-full flex-shrink-0 ${typeDot}`} />
                     
@@ -101,20 +99,20 @@ export default function Logs(): React.JSX.Element {
                       [{log.timestamp.split(" ")[1]}]
                     </span>
 
-                    <span className="text-stone-500 uppercase text-[10px] tracking-wider border border-stone-200/10 px-1 rounded bg-stone-900/20 whitespace-nowrap">
+                    <span className="dark:text-stone-500 text-stone-700 uppercase text-[10px] tracking-wider border border-stone-800/10 dark:border-stone-200/10 px-1 rounded bg-stone-300 dark:bg-stone-900/20 whitespace-nowrap">
                       {log.category}
                     </span>
 
                     <p className={`${textClass} whitespace-nowrap`}>
-                      {log.title} <span className="text-stone-500 opacity-60 font-light text-[11px] ml-1">— {log.details}</span>
+                      {log.title} <span className="text-stone-600 dark:text-stone-400/50 opacity-60 font-light text-[11px] ml-1">— {log.details}</span>
                     </p>
                   </div>
 
                   {/* Right section: Status flags */}
                   <div className="flex-shrink-0 text-[10px] font-bold tracking-wider pl-4">
-                    {log.type === "risk" && <span className="text-red-400/90 bg-red-500/10 px-1.5 py-0.5 rounded border border-red-500/20">ALERT</span>}
-                    {log.type === "ok" && <span className="text-emerald-400/90 opacity-60">SUCCESS</span>}
-                    {log.type === "info" && <span className="text-sky-400/90 opacity-60">INFO</span>}
+                    {log.type === "risk" && <span className="text-red-600/80 dark:text-red-400/90 bg-red-500/10 px-1.5 py-0.5 rounded border border-red-500/20">ALERT</span>}
+                    {log.type === "ok" && <span className="text-emerald-600/90 dark:text-emerald-400/90 opacity-60">SUCCESS</span>}
+                    {log.type === "info" && <span className="dark:text-sky-400/90 text-sky-600/90 opacity-60">INFO</span>}
                   </div>
                 </div>
               );

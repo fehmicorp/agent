@@ -4,7 +4,6 @@ import Logo from "../../assets/logo.svg";
 import App from "../data";
 import { dash } from "../data/dummy";
 import { Card, Info, Status } from "../../utils/func";
-import Header from "../../component/Header";
 
 export default function Dashboard(): React.JSX.Element {
   return (
