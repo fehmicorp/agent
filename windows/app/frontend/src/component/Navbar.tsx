@@ -14,7 +14,7 @@ window.location.hash = route;
 return (
   <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-50">
     <div className="relative flex items-center gap-1 p-1 rounded-2xl bg-white/10 dark:bg-slate-950/10
-      backdrop-blur-[0.5rem] backdrop-saturate-[150%] border border-white/10 dark:border-white/10
+      backdrop-blur-md backdrop-saturate-[150%] border border-white/10 dark:border-white/10
       shadow-[0_8px_32px_rgba(0,0,0,0.12)] overflow-visible transition-all px-2 duration-300 ease-in-out hover:shadow-blue-400/20 hover:shadow-md hover:scale-[1.05] hover:-translate-1">
       {navItems.map((item) => {
         const Icon = item.icon;
