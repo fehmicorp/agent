@@ -21,13 +21,15 @@ export default function Agent(): React.JSX.Element {
 
   // Automatic Session Expiration Handler (Runs 30 minutes countdown)
   useEffect(() => {
-    let logoutTimer: NodeJS.Timeout;
+    let logoutTimer: ReturnType<typeof setTimeout>; // Fixed: Replaced NodeJS.Timeout
+    
     if (isAdmin) {
       logoutTimer = setTimeout(() => {
         setIsAdmin(false);
         alert("Administrative session expired (30-minute timeout security rule triggered).");
       }, 30 * 60 * 1000);
     }
+    
     return () => clearTimeout(logoutTimer);
   }, [isAdmin]);
 
