@@ -38,9 +38,9 @@ export default function Software(): React.JSX.Element {
   };
 
   return (
-    <div className="">
+    <div>
       {/* SECTION 1: HEADER & TELEMETRY STREAM ROW */}
-      <div className={`${cardMain} rounded-2xl p-4 border border-stone-200/5 flex flex-col lg:flex-row lg:items-center justify-between gap-4`}>
+      <div className={`${cardMain} pt-2 rounded-2xl mt-4 p-4 border border-stone-200/5 flex flex-col lg:flex-row lg:items-center justify-between gap-4`}>
         <div>
           <div className="flex items-center gap-2">
             <h1 className={`${spanText} font-bold text-base tracking-wide font-mono`}>
@@ -85,7 +85,7 @@ export default function Software(): React.JSX.Element {
       </div>
 
       {/* SECTION 2: SEARCH FILTER CONTROLS TERMINAL (STICKY DECK) */}
-      <div className="sticky top-[2.5rem] z-30 py-2.5 bg-stone-100 dark:bg-stone-950 shadow-md shadow-stone-300/40 dark:shadow-stone-950/80 grid grid-cols-6 gap-3 transition-colors duration-200">
+      <div className="sticky top-0 z-30 pb-4 bg-stone-100 dark:bg-stone-950 shadow-md shadow-stone-300/40 dark:shadow-stone-950/80 grid grid-cols-6 gap-3 transition-colors duration-200">
         <div className="col-span-4 relative pt-5">
           <input
             type="text"

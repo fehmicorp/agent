@@ -25,7 +25,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   onSettingChange,
 }) => {
   return (
-    <div className={`${cardMain} rounded-2xl p-4 border border-stone-500/20 bg-stone-200/50 dark:bg-stone-950/5 font-mono text-xs space-y-4 animate-fadeIn`}>
+    <div className={`${cardMain}  rounded-2xl mt-4 mx-2 p-4 border border-stone-500/20 bg-stone-200/50 dark:bg-stone-950/5 font-mono text-xs space-y-4 animate-fadeIn`}>
       {/* Header administrative toolbar banner */}
       <div className="flex justify-between items-center border-b border-stone-700/20 dark:border-stone-300/20 pb-2">
         <div>

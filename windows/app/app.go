@@ -2,35 +2,26 @@ package main
 
 import (
 	"context"
-
-	"github.com/fehmicorp/agent/windows/config/registry"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"fmt"
 )
 
+// App struct
 type App struct {
-	ID   int
-	Href string
-	Ctx  context.Context
+	ctx context.Context
 }
 
 // NewApp creates a new App application struct
-func NewApp(id int) *App {
-	return &App{
-		ID:   id,
-		Href: AppRoute(id),
-	}
+func NewApp() *App {
+	return &App{}
 }
 
+// startup is called when the app starts. The context is saved
+// so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
-	a.Ctx = ctx
-	registry.SetContext(a.ID, ctx)
+	a.ctx = ctx
 }
 
-func QuitApp(id int) {
-	ctx := registry.GetContext(id)
-	if ctx == nil {
-		return
-	}
-	registry.DeleteContext(id)
-	runtime.Quit(ctx)
+// Greet returns a greeting for the given name
+func (a *App) Greet(name string) string {
+	return fmt.Sprintf("Hello %s, It's show time!", name)
 }

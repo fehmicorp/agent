@@ -76,7 +76,7 @@ export default function App() {
           }
           
           {/* Changed 'overflow-hidden' to 'overflow-y-auto' to allow pages to scroll inside viewport safely */}
-          <div className="flex-1 p-2 pb-24 overflow-y-auto min-h-0">
+          <div className="flex-1 px-2 pb-24 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-stone-500/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-stone-500/60">
             <Page />
           </div>
         </div>

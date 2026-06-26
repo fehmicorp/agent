@@ -8,7 +8,7 @@ import { Card, Info, Status } from "../../utils/func";
 export default function Dashboard(): React.JSX.Element {
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-4 pt-4 gap-4 mb-6">
         {dash.stat.map((item, index) => (
           <Card
             key={item.title}

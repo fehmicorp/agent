@@ -31,7 +31,7 @@ export default function Support(): React.JSX.Element {
   };
 
   return (
-    <div className="space-y-4 pt-2 font-mono">
+    <div className="space-y-4 pt-4 px-2 font-mono">
       {/* Top Navigation Control Dashboard Header */}
       <div className="flex items-center justify-between border-b border-stone-400/10 pb-4">
         <div>

@@ -31,7 +31,7 @@ export default function Logs(): React.JSX.Element {
   });
 
   return (
-    <>
+    <div className="pt-2">
       {/* 1. Header Toolbar & Filters */}
       <div className="rounded-2xl px-4 py-2 flex flex-row md:flex-row gap-4 justify-between items-center">
         <div>
@@ -124,6 +124,6 @@ export default function Logs(): React.JSX.Element {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

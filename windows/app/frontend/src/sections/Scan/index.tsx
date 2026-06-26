@@ -75,7 +75,7 @@ export default function Scan(): React.JSX.Element {
   };
 
   return (
-    <>
+    <div className="pt-4">
       {/* 1. Scan Selection Buttons */}
       {!scanning && (
         <div className="grid grid-cols-2 gap-4">
@@ -159,7 +159,7 @@ export default function Scan(): React.JSX.Element {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

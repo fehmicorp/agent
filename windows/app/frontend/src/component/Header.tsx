@@ -26,7 +26,7 @@ export default function Header({
 
   return (
     <div 
-      className={`sticky top-0 z-40 mb-4 p-2 border-stone-200/20 flex justify-between items-end shadow-lg bg-stone-100 dark:bg-stone-950 transition-colors duration-200 ${statusStyle}`}
+      className={`sticky top-0 z-40 p-2 border-stone-200/20 flex justify-between items-end shadow-lg bg-stone-100 dark:bg-stone-950 transition-colors duration-200 ${statusStyle}`}
     >
       <div className="flex items-end">
         <img src={Logo} alt="Logo" className="h-8 w-8 mr-1"/>

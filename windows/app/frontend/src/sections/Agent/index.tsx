@@ -128,7 +128,7 @@ export default function Agent(): React.JSX.Element {
      2. STANDARD STATE: Default view workspace
      ======================================================== */
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 pt-4 px-2">
       {/* 1. Top Row Dashboard Overview Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         
