@@ -24,10 +24,10 @@ const INITIAL_NOTIFICATIONS = [
 ];
 
 const INITIAL_JOBS: QueueJob[] = [
-  { id: "JOB-992", name: "Security Patch Engine Upgrade v2.4.1", type: "update", status: "running", progress: 68, timestamp: "Just now" },
-  { id: "JOB-771", name: "Host Agent Node Core Vulnerability Scan", type: "scan", status: "queued", progress: 0, timestamp: "1 min ago" },
-  { id: "JOB-402", name: "Deploy @fehmicorp/middleware Bundle to npm Registry", type: "installation", status: "success", progress: 100, timestamp: "12 mins ago" },
-  { id: "JOB-109", name: "Synology NAS Target LUN Multipath Sync", type: "backup", status: "failed", progress: 40, timestamp: "1 hr ago", details: "iSCSI connection reset by host fcupepgdb01 pipeline error." },
+  { id: "JOB-992", name: "Security Patch Engine Upgrade v2.4.1", type: "update", status: "running", timestamp: "Just now" },
+  { id: "JOB-771", name: "Host Agent Node Core Vulnerability Scan", type: "scan", status: "queued", timestamp: "1 min ago" },
+  { id: "JOB-402", name: "Deploy @fehmicorp/middleware Bundle to npm Registry", type: "installation", status: "success", timestamp: "12 mins ago" },
+  { id: "JOB-109", name: "Synology NAS Target LUN Multipath Sync", type: "backup", status: "failed", timestamp: "1 hr ago", details: "iSCSI connection reset by host fcupepgdb01 pipeline error." },
 ];
 
 export default function App() {

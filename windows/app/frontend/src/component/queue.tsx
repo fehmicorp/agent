@@ -4,9 +4,8 @@ import { X, CheckCircle2, AlertCircle, Loader2, Clock, Terminal } from "lucide-r
 export interface QueueJob {
   id: string;
   name: string;
-  type: "installation" | "update" | "scan" | "backup";
-  status: "running" | "queued" | "success" | "failed";
-  progress: number; // Percent 0-100
+  type: string;
+  status: string;
   timestamp: string;
   details?: string;
 }
@@ -148,22 +147,6 @@ export default function Queue({
                     {job.status}
                   </span>
                 </div>
-
-                {/* Conditional progress monitor line output parameters */}
-                {job.status === "running" && (
-                  <div className="space-y-1">
-                    <div className="flex justify-between items-center text-[9px] text-stone-400">
-                      <span>Processing cluster dependencies...</span>
-                      <span className="font-bold text-stone-600 dark:text-stone-300">{job.progress}%</span>
-                    </div>
-                    <div className="w-full h-1 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-amber-500 transition-all duration-300 ease-out"
-                        style={{ width: `${job.progress}%` }}
-                      />
-                    </div>
-                  </div>
-                )}
 
                 {/* Subtext execution errors string logging */}
                 {job.details && (
