@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 
+	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -12,7 +13,8 @@ import (
 var assets embed.FS
 
 func main() {
-	InitLogger()
+	logger.InitLogger("", "")
+	defer logger.Logger.Close()
 	defer Logger.Close()
 	app := NewApp()
 	err := wails.Run(&options.App{
