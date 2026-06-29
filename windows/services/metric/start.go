@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/StackExchange/wmi"
+	log "github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
@@ -28,7 +29,7 @@ func getRAMUsage() string {
 	if vm, err := mem.VirtualMemory(); err == nil {
 		return fmt.Sprintf("%.0f%%", vm.UsedPercent)
 	} else {
-		Logger.Log("ERROR", "RAM metrics collection failed: "+err.Error())
+		log.Logger.Log("ERROR", "RAM metrics collection failed: "+err.Error())
 	}
 	return "0%"
 }
@@ -36,7 +37,7 @@ func getRAMUsage() string {
 func getDiskUsage(drive string) string {
 	d, err := disk.Usage(drive)
 	if err != nil {
-		Logger.Log("ERROR", "Disk tracking error: "+err.Error())
+		log.Logger.Log("ERROR", "Disk tracking error: "+err.Error())
 		return "0%"
 	}
 	return fmt.Sprintf("%.0f%%", d.UsedPercent)
