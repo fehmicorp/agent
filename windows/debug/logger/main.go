@@ -13,7 +13,7 @@ type AgentLogger struct {
 
 var Logger *AgentLogger
 
-func InitLogger(customPath string) {
+func InitLogger(customPath string, fileName string) {
 	var dir string
 	execPath, err := os.Executable()
 	if err != nil {
@@ -21,22 +21,20 @@ func InitLogger(customPath string) {
 	} else {
 		dir = filepath.Dir(execPath)
 	}
-
+	if fileName == "" {
+		fileName = "logger.txt"
+	}
 	var logPath string
 	if customPath == "" {
-		// Default path in the executable's directory
-		logPath = filepath.Join(dir, "logger.txt")
+		logPath = filepath.Join(dir, fileName)
 	} else {
-		// Use the provided path
-		logPath = customPath
+		logPath = filepath.Join(customPath, fileName)
 	}
-
 	file, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Printf("Failed to initialize file logger at %s: %v\n", logPath, err)
 		return
 	}
-
 	Logger = &AgentLogger{file: file}
 	Logger.Log("INFO", "=============================================")
 	Logger.Log("INFO", "Fehmi Endpoint Agent Logger Initialized System")
