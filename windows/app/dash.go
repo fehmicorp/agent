@@ -9,6 +9,7 @@ import (
 	"unicode"
 
 	"github.com/StackExchange/wmi"
+	"github.com/fehmicorp/agent/windows/services/metric"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/net"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -30,16 +31,7 @@ func (a *App) StartMetric(intervalMs int) {
 			cpuStr := metric.GetCPUUsage()
 			ramStr := metric.GetRAMUsage()
 			diskStr := metric.GetDiskUsage("C:")
-			// netStr := "0B"
-
-			// if rxBytes, _, err := getWmiNetwork(); err == nil {
-			// 	netStr = formatSpeed(float64(rxBytes))
-			// } else {
-			// 	Logger.Log("ERROR", "Network interface parsing aborted: "+err.Error())
-			// }
-
-			Logger.Log("METRIC", fmt.Sprintf("CPU: %s | RAM: %s | Disk: %s | NetDownload: %s", cpuStr, ramStr, diskStr, netStr))
-
+			netStr := metric.GetNetwork()
 			runtime.EventsEmit(a.ctx, "metrics_update", UsageStats{
 				CPU:     cpuStr,
 				RAM:     ramStr,
