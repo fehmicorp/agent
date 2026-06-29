@@ -15,7 +15,7 @@ var assets embed.FS
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	defer Logger.Close()
+	isAdmin := firewall
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",
