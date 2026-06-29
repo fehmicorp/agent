@@ -1,43 +1,120 @@
-import React from "react";
-import { anim_1, bgMain, cardMain, headingText, mutedText, spanText } from "../../utils/colour";
-import Logo from "../../assets/logo.svg";
-import App from "../data";
-import { dash } from "../data/dummy";
+import React, { useEffect, useState } from "react";
+import { cardMain, anim_1, spanText } from "../../utils/colour";
 import { Card, Info, Status } from "../../utils/func";
 
+// Import Wails runtime binds generated during standard go compilation routines
+import { GetSystemDeviceInfo } from "../../../wailsjs/go/main/App";
+import { EventsOn, EventsOff } from "../../../wailsjs/runtime/runtime";
+
+interface MetricCard {
+  title: string;
+  value: string | number; 
+}
+
+interface InfoItem {
+  title: string;
+  value: string;
+}
+
+interface StatusItem {
+  title: string;
+  value: boolean;
+}
+
+// Moving getStatTheme and Card here to keep everything clean and compiled
+export function getStatTheme(value: number, isStringFallback = false) {
+  if (isStringFallback) {
+    return { text: "text-blue-500", shadow: "hover:shadow-blue-500/30" };
+  }
+  if (value <= 50) return { text: "text-blue-500", shadow: "hover:shadow-blue-500/30" };
+  if (value <= 60) return { text: "text-green-500", shadow: "hover:shadow-green-500/30" };
+  if (value <= 70) return { text: "text-lime-500", shadow: "hover:shadow-lime-500/30" };
+  if (value <= 80) return { text: "text-orange-500", shadow: "hover:shadow-orange-500/30" };
+  if (value <= 90) return { text: "text-red-500", shadow: "hover:shadow-red-500/30" };
+  
+  return { text: "text-red-900 dark:text-red-700", shadow: "hover:shadow-red-900/40" };
+}
+
+export function CustomCard({ title, value }: { title: string; value: string | number }) {
+  const isNumeric = typeof value === "number";
+  const numericValue = isNumeric ? value : 0;
+  const colour = getStatTheme(numericValue, !isNumeric);
+
+  return (
+    <div className={`${cardMain} rounded-xl p-5 ${anim_1} hover:shadow-lg ${colour.shadow}`}>
+      <p className={spanText}>{title}</p>
+      <p className={`text-xl font-semibold mt-2 whitespace-nowrap ${colour.text}`}>
+        {isNumeric ? `${value}%` : value}
+      </p>
+    </div>
+  );
+}
+
 export default function Dashboard(): React.JSX.Element {
+  const [stats, setStats] = useState<MetricCard[]>([
+    { title: "CPU Usage", value: 0 },
+    { title: "RAM Usage", value: 0 },
+    { title: "Disk Usage", value: 0 },
+    { title: "Network", value: "D: 0 b/s U: 0 b/s" },
+  ]);
+
+  const [deviceInfo, setDeviceInfo] = useState<InfoItem[]>([]);
+  const [securityStatus, setSecurityStatus] = useState<StatusItem[]>([]);
+
+  useEffect(() => {
+    GetSystemDeviceInfo().then((info) => {
+      setDeviceInfo([
+        { title: "Hostname", value: info.hostname },
+        { title: "Domain", value: info.domain },
+        { title: "User", value: info.user },
+        { title: "OS", value: info.os },
+        { title: "Agent Version", value: info.agentVersion },
+      ]);
+
+      setSecurityStatus([
+        { title: "Windows Defender", value: info.windowsDefender.toLowerCase() === "enabled" },
+        { title: "Firewall", value: info.firewall.toLowerCase() === "enabled" },
+        { title: "TPM", value: info.tpm.toLowerCase() === "enabled" },
+        { title: "BitLocker", value: info.bitLocker.toLowerCase() === "enabled" },
+      ]);
+    }).catch(err => console.error(err));
+
+    const handleMetricsUpdate = (data: any) => {
+      // Strips percentage symbols to let the UI component read numbers correctly
+      const cleanInt = (val: string) => parseInt(val.replace("%", ""), 10) || 0;
+
+      setStats([
+        { title: "CPU Usage", value: cleanInt(data.cpu) },
+        { title: "RAM Usage", value: cleanInt(data.ram) },
+        { title: "Disk Usage", value: cleanInt(data.disk) },
+        { title: "Network", value: data.network }, 
+      ]);
+    };
+
+    EventsOn("metrics_update", handleMetricsUpdate);
+    return () => EventsOff("metrics_update");
+  }, []);
+
   return (
     <>
       <div className="grid grid-cols-4 pt-4 gap-4 mb-6">
-        {dash.stat.map((item, index) => (
-          <Card
-            key={item.title}
-            title={item.title}
-            value={item.value}
-          />
+        {stats.map((item) => (
+          <CustomCard key={item.title} title={item.title} value={item.value} />
         ))}
       </div>
+
       <div className="grid grid-cols-2 gap-6">
         <div className={`${cardMain} rounded-xl p-5 border dark:border-stone-500/20 border-stone-500/20`}>
-          <h2 className={spanText}>
-            Device Information
-          </h2>
-          {dash.dev.map((item) => (
-            <Info
-              title={item.title}
-              value={item.value}
-            />
+          <h2 className={spanText}>Device Information</h2>
+          {deviceInfo.map((item) => (
+            <Info key={item.title} title={item.title} value={item.value} />
           ))}
         </div>
+        
         <div className={`${cardMain} rounded-xl p-5 border dark:border-stone-500/20 border-stone-500/20`}>
-          <h2 className={spanText}>
-            Security Status
-          </h2>
-          {dash.sec.map((item) => (
-            <Status
-              title={item.title}
-              value={item.value}
-            />
+          <h2 className={spanText}>Security Status</h2>
+          {securityStatus.map((item) => (
+            <Status key={item.title} title={item.title} value={item.value} />
           ))}
         </div>
       </div>

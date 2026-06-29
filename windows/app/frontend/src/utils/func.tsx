@@ -1,6 +1,14 @@
 import { anim_1, cardMain, spanText } from "./colour";
 
-export function getStatTheme(value: number) {
+export function getStatTheme(value: number, isStringFallback = false) {
+  // Default look for custom string formats (like Network Mb/s) to keep visual consistency
+  if (isStringFallback) {
+    return {
+      text: "text-blue-500",
+      shadow: "hover:shadow-blue-500/30",
+    };
+  }
+
   if (value <= 50) {
     return {
       text: "text-blue-500",
@@ -42,15 +50,19 @@ export function getStatTheme(value: number) {
   };
 }
 
-
 export function Card({
   title,
   value,
 }: {
   title: string;
-  value: number;
+  value: string | number; // Updated type signature to safely accept both formats
 }) {
-  const colour = getStatTheme(value);
+  // Check if value is a valid numeric range or a custom string configuration
+  const isNumeric = typeof value === "number";
+  const numericValue = isNumeric ? value : 0;
+
+  const colour = getStatTheme(numericValue, !isNumeric);
+
   return (
     <div
       className={`
@@ -66,7 +78,8 @@ export function Card({
         {title}
       </p>
       <p className={`text-xl font-semibold mt-2 ${colour.text}`}>
-        {value}%
+        {/* Only append % if the value was originally passed down as a number */}
+        {isNumeric ? `${value}%` : value}
       </p>
     </div>
   );

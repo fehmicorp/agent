@@ -2,12 +2,11 @@
 
 import {
   Home,
-  ScanSearch,
-  Monitor,
-  FileText,
-  Package,
-  LifeBuoy,
-  Shield,
+  // ScanSearch,
+  // Monitor,
+  // FileText,
+  // Package,
+  // LifeBuoy,
 } from "lucide-react";
 
 export const navItems = [
@@ -16,29 +15,29 @@ export const navItems = [
     route: "dashboard",
     icon: Home,
   },
-  {
-    title: "Scan",
-    route: "scan",
-    icon: ScanSearch,
-  },
-  {
-    title: "Logs",
-    route: "logs",
-    icon: FileText,
-  },
-  {
-    title: "Software",
-    route: "software",
-    icon: Package,
-  },
-  {
-    title: "Support",
-    route: "support",
-    icon: LifeBuoy,
-  },
-  {
-    title: "Agent",
-    route: "agent",
-    icon: Monitor,
-  },
+  // {
+  //   title: "Scan",
+  //   route: "scan",
+  //   icon: ScanSearch,
+  // },
+  // {
+  //   title: "Logs",
+  //   route: "logs",
+  //   icon: FileText,
+  // },
+  // {
+  //   title: "Software",
+  //   route: "software",
+  //   icon: Package,
+  // },
+  // {
+  //   title: "Support",
+  //   route: "support",
+  //   icon: LifeBuoy,
+  // },
+  // {
+  //   title: "Agent",
+  //   route: "agent",
+  //   icon: Monitor,
+  // },
 ];
