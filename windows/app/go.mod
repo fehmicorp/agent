@@ -14,6 +14,7 @@ require (
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b9d // indirect
 	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629120921-dcdaf40bf061 // indirect
+	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629131642-e4874c14b1f0 // indirect
 	github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629130757-4084c91e3b9d // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
@@ -34,9 +35,10 @@ require (
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/samber/lo v1.49.1 // indirect
+	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
-	github.com/tklauser/go-sysconf v0.3.12 // indirect
-	github.com/tklauser/numcpus v0.6.1 // indirect
+	github.com/tklauser/go-sysconf v0.4.0 // indirect
+	github.com/tklauser/numcpus v0.12.0 // indirect
 	github.com/tkrajina/go-reflector v0.5.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect

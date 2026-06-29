@@ -27,7 +27,7 @@ func (a *App) StartMetric(intervalMs int) {
 		case <-a.ctx.Done():
 			return
 		case <-ticker.C:
-			cpuStr := getCPUUsage()
+			cpuStr := metric.getCPUUsage()
 			ramStr := getRAMUsage()
 			diskStr := getDiskUsage("C:")
 			netStr := "0B"

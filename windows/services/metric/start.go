@@ -17,7 +17,7 @@ type Win32_PerfFormattedData_Tcpip_NetworkInterface struct {
 	BytesSentPerSec     uint64
 }
 
-func getCPUUsage() string {
+func GetCPUUsage() string {
 	cpuPercent, err := cpu.Percent(0, false)
 	if err == nil && len(cpuPercent) > 0 {
 		return fmt.Sprintf("%.0f%%", cpuPercent[0])
@@ -25,7 +25,7 @@ func getCPUUsage() string {
 	return "0%"
 }
 
-func getRAMUsage() string {
+func GetRAMUsage() string {
 	if vm, err := mem.VirtualMemory(); err == nil {
 		return fmt.Sprintf("%.0f%%", vm.UsedPercent)
 	} else {
@@ -34,7 +34,7 @@ func getRAMUsage() string {
 	return "0%"
 }
 
-func getDiskUsage(drive string) string {
+func GetDiskUsage(drive string) string {
 	d, err := disk.Usage(drive)
 	if err != nil {
 		logger.Logger.Log("ERROR", "Disk tracking error: "+err.Error())
@@ -43,7 +43,7 @@ func getDiskUsage(drive string) string {
 	return fmt.Sprintf("%.0f%%", d.UsedPercent)
 }
 
-func getWmiNetwork() (uint64, uint64, error) {
+func GetWmiNetwork() (uint64, uint64, error) {
 	var netAdapters []Win32_PerfFormattedData_Tcpip_NetworkInterface
 	query := "SELECT Name, BytesReceivedPerSec, BytesSentPerSec FROM Win32_PerfFormattedData_Tcpip_NetworkInterface"
 	if err := wmi.Query(query, &netAdapters); err != nil {
@@ -69,7 +69,7 @@ func contains(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-func formatSpeed(bytes float64) string {
+func FormatSpeed(bytes float64) string {
 	const (
 		KB = 1024
 		MB = KB * 1024
