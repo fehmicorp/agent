@@ -4,6 +4,7 @@ import (
 	"embed"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
+	"github.com/fehmicorp/agent/windows/utils/runas"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -15,7 +16,20 @@ var assets embed.FS
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	isAdmin := firewall
+
+	// Check if running with administrative rights
+	if !runas.IsAdmin() {
+		logger.Logger.Log("INFO", "Running as standard user. Attempting elevation request...")
+		err := runas.RequestElevation()
+		if err != nil {
+			logger.Logger.Log("ERROR", "Privilege escalation prompt failed or rejected: "+err.Error())
+			// Exit immediately since the user denied permission or elevation failed
+			return
+		}
+	}
+
+	logger.Logger.Log("INFO", "Process verified with Administrative privileges. Starting application context...")
+
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",
@@ -32,6 +46,7 @@ func main() {
 		},
 	})
 	if err != nil {
+		logger.Logger.Log("FATAL", "Wails execution encounter: "+err.Error())
 		println("Error:", err.Error())
 	}
 }

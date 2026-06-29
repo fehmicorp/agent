@@ -25,7 +25,6 @@ var (
 func (a *App) StartMetric(intervalMs int) {
 	ticker := time.NewTicker(time.Duration(intervalMs) * time.Millisecond)
 	defer ticker.Stop()
-
 	for {
 		select {
 		case <-a.ctx.Done():
