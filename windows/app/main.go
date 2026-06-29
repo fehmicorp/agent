@@ -12,12 +12,14 @@ import (
 var assets embed.FS
 
 func main() {
+	InitLogger()
+	defer Logger.Close()
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",
 		DisableResize: true,
 		Width:         650,
-		Height:        600,
+		Height:        500,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},

@@ -41,9 +41,9 @@ export function CustomCard({ title, value }: { title: string; value: string | nu
   const colour = getStatTheme(numericValue, !isNumeric);
 
   return (
-    <div className={`${cardMain} rounded-xl p-5 ${anim_1} hover:shadow-lg ${colour.shadow}`}>
+    <div className={`${cardMain} rounded-xl items-center px-2 py-3 ${anim_1} hover:shadow-lg ${colour.shadow}`}>
       <p className={spanText}>{title}</p>
-      <p className={`text-xl font-semibold mt-2 whitespace-nowrap ${colour.text}`}>
+      <p className={`text-xl font-semibold mt-2 whitespace-nowrap truncate ${colour.text}`}>
         {isNumeric ? `${value}%` : value}
       </p>
     </div>
@@ -55,7 +55,7 @@ export default function Dashboard(): React.JSX.Element {
     { title: "CPU Usage", value: 0 },
     { title: "RAM Usage", value: 0 },
     { title: "Disk Usage", value: 0 },
-    { title: "Network", value: "D: 0 b/s U: 0 b/s" },
+    { title: "Network", value: "" },
   ]);
 
   const [deviceInfo, setDeviceInfo] = useState<InfoItem[]>([]);
@@ -70,7 +70,8 @@ export default function Dashboard(): React.JSX.Element {
         { title: "OS", value: info.os },
         { title: "Agent Version", value: info.agentVersion },
       ]);
-
+      
+      console.log(info.firewall.toLowerCase())
       setSecurityStatus([
         { title: "Windows Defender", value: info.windowsDefender.toLowerCase() === "enabled" },
         { title: "Firewall", value: info.firewall.toLowerCase() === "enabled" },

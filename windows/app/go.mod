@@ -3,6 +3,7 @@ module app
 go 1.23.0
 
 require (
+	github.com/StackExchange/wmi v1.2.1
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/wailsapp/wails/v2 v2.12.0
 	github.com/yusufpapurcu/wmi v1.2.4

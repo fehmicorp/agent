@@ -12,6 +12,50 @@ type DeviceInfo struct {
 	BitLocker       string `json:"bitLocker"`
 }
 
+type DefenderDetails struct {
+	Status             string // Overall Status: "Secure", "Action Required", or "Disabled"
+	RealTimeProtection string // "Enabled" or "Disabled"
+	TamperProtection   string // "Enabled" or "Disabled"
+	BehaviorMonitoring string // "Enabled" or "Disabled"
+	IOAVProtection     string // "Enabled" or "Disabled" (IE/Edge/Download scanning)
+}
+
+type FirewallDetails struct {
+	Status         string // Overall Status: "Secure" or "Action Required"
+	DomainProfile  string // "Enabled" or "Disabled"
+	PrivateProfile string // "Enabled" or "Disabled"
+	PublicProfile  string // "Enabled" or "Disabled"
+}
+
+// Native Windows Defender WMI configuration mapping structure
+type MSFT_MpPreference struct {
+	DisableRealtimeMonitoring bool  `wmi:"DisableRealtimeMonitoring"`
+	DisableBehaviorMonitoring bool  `wmi:"DisableBehaviorMonitoring"`
+	DisableIOAVProtection     bool  `wmi:"DisableIOAVProtection"`
+	EnableTamperProtection    uint8 `wmi:"EnableTamperProtection"` // 0: Disabled, 4: Enabled
+}
+
+// Native Advanced Firewall WMI mapping structure
+type MSFT_NetFirewallProfileDetailed struct {
+	Enabled bool   `wmi:"Enabled"`
+	Profile uint16 `wmi:"Profile"` // 1: Domain, 2: Private, 4: Public
+}
+
+type Win32_PerfFormattedData_Amd64_HNSNetwork struct {
+	// Alternatively, we use the standard Win32 firewall profile checks
+}
+
+type Win32_OperatingSystem struct {
+	Caption                string
+	TotalVisibleMemorySize uint64
+	FreePhysicalMemory     uint64
+}
+
+type Win32_ComputerSystem struct {
+	Domain       string
+	PartOfDomain bool
+}
+
 type UsageStats struct {
 	CPU     string `json:"cpu"`
 	RAM     string `json:"ram"`
@@ -19,14 +63,12 @@ type UsageStats struct {
 	Network string `json:"network"`
 }
 
-type NetworkSpeed struct {
-	Download string `json:"download"`
-	Upload   string `json:"upload"`
-	RxBytes  uint64 `json:"rxBytes"`
-	TxBytes  uint64 `json:"txBytes"`
+type Win32_PerfFormattedData_Tcpip_NetworkInterface struct {
+	Name                string
+	BytesReceivedPerSec uint64
+	BytesSentPerSec     uint64
 }
 
-// Win32_Processor maps high-level hardware layout schemas from Windows WMI core engine
 type Win32_Processor struct {
 	Name                      string // Manufacturer model description tag (e.g., "Intel Core i7-12700H")
 	NumberOfCores             uint32 // Physical layout cores

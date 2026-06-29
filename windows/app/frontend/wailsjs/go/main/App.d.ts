@@ -15,3 +15,5 @@ export function GetRamDetails(arg1:number):Promise<string>;
 export function GetSystemDeviceInfo():Promise<main.DeviceInfo>;
 
 export function Greet(arg1:string):Promise<string>;
+
+export function StartMetric(arg1:number):Promise<void>;

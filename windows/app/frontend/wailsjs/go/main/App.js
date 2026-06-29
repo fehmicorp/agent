@@ -29,3 +29,7 @@ export function GetSystemDeviceInfo() {
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
+
+export function StartMetric(arg1) {
+  return window['go']['main']['App']['StartMetric'](arg1);
+}
