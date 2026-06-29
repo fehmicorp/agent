@@ -43,7 +43,19 @@ func GetDiskUsage(drive string) string {
 	return fmt.Sprintf("%.0f%%", d.UsedPercent)
 }
 
-func GetWmiNetwork() (uint64, uint64, error) {
+func GetNetwork() (string, string, error) {
+	var tx string = "0B"
+	var rx string = "0B"
+	rxBytes, txBytes, err := getWmiNetwork()
+	if err != nil {
+		return tx, rx, err
+	}
+	rx = formatSpeed(float64(rxBytes))
+	tx = formatSpeed(float64(txBytes))
+	return tx, rx, err
+}
+
+func getWmiNetwork() (uint64, uint64, error) {
 	var netAdapters []Win32_PerfFormattedData_Tcpip_NetworkInterface
 	query := "SELECT Name, BytesReceivedPerSec, BytesSentPerSec FROM Win32_PerfFormattedData_Tcpip_NetworkInterface"
 	if err := wmi.Query(query, &netAdapters); err != nil {
@@ -69,7 +81,7 @@ func contains(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-func FormatSpeed(bytes float64) string {
+func formatSpeed(bytes float64) string {
 	const (
 		KB = 1024
 		MB = KB * 1024

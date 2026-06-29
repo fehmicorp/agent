@@ -27,16 +27,16 @@ func (a *App) StartMetric(intervalMs int) {
 		case <-a.ctx.Done():
 			return
 		case <-ticker.C:
-			cpuStr := metric.getCPUUsage()
-			ramStr := getRAMUsage()
-			diskStr := getDiskUsage("C:")
-			netStr := "0B"
+			cpuStr := metric.GetCPUUsage()
+			ramStr := metric.GetRAMUsage()
+			diskStr := metric.GetDiskUsage("C:")
+			// netStr := "0B"
 
-			if rxBytes, _, err := getWmiNetwork(); err == nil {
-				netStr = formatSpeed(float64(rxBytes))
-			} else {
-				Logger.Log("ERROR", "Network interface parsing aborted: "+err.Error())
-			}
+			// if rxBytes, _, err := getWmiNetwork(); err == nil {
+			// 	netStr = formatSpeed(float64(rxBytes))
+			// } else {
+			// 	Logger.Log("ERROR", "Network interface parsing aborted: "+err.Error())
+			// }
 
 			Logger.Log("METRIC", fmt.Sprintf("CPU: %s | RAM: %s | Disk: %s | NetDownload: %s", cpuStr, ramStr, diskStr, netStr))
 
