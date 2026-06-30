@@ -17,6 +17,13 @@ var (
 	lastNetworkSample time.Time
 )
 
+type UsageStats struct {
+	CPU     string `json:"cpu"`
+	RAM     string `json:"ram"`
+	Disk    string `json:"disk"`
+	Network string `json:"network"`
+}
+
 func (a *App) StartMetric(intervalMs int) {
 	ticker := time.NewTicker(time.Duration(intervalMs) * time.Millisecond)
 	defer ticker.Stop()

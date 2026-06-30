@@ -44,13 +44,6 @@ type Win32_ComputerSystem struct {
 	PartOfDomain bool
 }
 
-type UsageStats struct {
-	CPU     string `json:"cpu"`
-	RAM     string `json:"ram"`
-	Disk    string `json:"disk"`
-	Network string `json:"network"`
-}
-
 type Win32_PerfFormattedData_Tcpip_NetworkInterface struct {
 	Name                string
 	BytesReceivedPerSec uint64
