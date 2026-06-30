@@ -22,9 +22,10 @@ func IsAdmin() bool {
 	return member
 }
 
+// Changed from a method to a plain package function
 func RequestElevation() error {
 	if IsAdmin() {
-		return nil // Already elevated
+		return nil
 	}
 
 	verb := "runas"
@@ -33,7 +34,6 @@ func RequestElevation() error {
 		return fmt.Errorf("failed to detect running executable location: %w", err)
 	}
 
-	// Forward all incoming flags or parameters seamlessly to the elevated instance
 	args := strings.Join(os.Args[1:], " ")
 
 	verbPtr, err := syscall.UTF16PtrFromString(verb)
@@ -55,7 +55,6 @@ func RequestElevation() error {
 
 	var showCmd int32 = windows.SW_NORMAL
 
-	// Fill standard Shell Execute Struct parameters
 	sei := &windows.ShellExecuteInfo{
 		Size:       uint32(windows.SizeofShellExecuteInfo),
 		Mask:       windows.SEE_MASK_NOASYNC,
@@ -68,13 +67,11 @@ func RequestElevation() error {
 		HInstApp:   0,
 	}
 
-	// Trigger execution through Win32 subsystem API
 	err = windows.ShellExecuteEx(sei)
 	if err != nil {
 		return fmt.Errorf("elevation prompt rejected or failed: %w", err)
 	}
 
-	// Exit the unprivileged instance as the new process context spawns successfully
 	os.Exit(0)
 	return nil
 }
