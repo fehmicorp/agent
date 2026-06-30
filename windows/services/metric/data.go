@@ -9,6 +9,7 @@ import (
 
 	"github.com/StackExchange/wmi"
 	"github.com/fehmicorp/agent/windows/debug/logger"
+	"github.com/fehmicorp/agent/windows/services/firewall"
 	"github.com/shirou/gopsutil/host"
 )
 
@@ -29,14 +30,20 @@ type DeviceInfo struct {
 	BitLocker       string `json:"bitLocker"`
 }
 
-func (a *App) GetSystemDeviceInfo() DeviceInfo {
+func GetSystemDeviceInfo() DeviceInfo {
 	hostname, _ := os.Hostname()
 	currentUser, _ := user.Current()
 	osDisplay := getExactOSName()
 	username := "Administrator"
 	domain := formatToTitleCase(getWmiDomain())
 	// defender := getDefender()
-	firewall := getFirewall()
+	fw, err := firewall.GetFirewallStatus()
+	fwStatus := false
+	if err == nil {
+		fwStatus = fw.Enabled
+	} else {
+		logger.Logger.Log("ERROR", "Firewall Status getting failed: "+err.Error())
+	}
 	if currentUser != nil {
 		rawUsername := currentUser.Username
 		if strings.Contains(rawUsername, "\\") {
@@ -57,7 +64,7 @@ func (a *App) GetSystemDeviceInfo() DeviceInfo {
 		OS:           osDisplay,
 		AgentVersion: "v1.0.1",
 		// WindowsDefender: defender.Status,
-		Firewall:  firewall.Status,
+		Firewall:  fwStatus,
 		TPM:       "Enabled",
 		BitLocker: "Disabled",
 	}

@@ -67,22 +67,26 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 		FirewallService: "Stopped",
 		InboundAction:   "Unknown",
 	}
+
 	cmd := exec.Command(
 		"powershell",
 		"-NoProfile",
 		"-ExecutionPolicy", "Bypass",
 		"-Command",
-		`Get-NetFirewallProfile | Select Name,Enabled,DefaultInboundAction | ConvertTo-Json`,
+		`Get-NetFirewallProfile | Select-Object Name, Enabled, DefaultInboundAction | ConvertTo-Json`,
 	)
+
 	out, err := cmd.Output()
 	if err != nil {
 		return result, err
 	}
+
 	var profiles []firewallProfile
 	if err := json.Unmarshal(out, &profiles); err != nil {
 		var single firewallProfile
+		// If single object JSON parsing works, overwrite error to nil
 		if err2 := json.Unmarshal(out, &single); err2 != nil {
-			return result, err
+			return result, err // Returns original unmarshal error if both attempts fail
 		}
 		profiles = []firewallProfile{single}
 	}
@@ -100,7 +104,6 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 			result.DomainProfile = enabled
 		case "Private":
 			result.PrivateProfile = enabled
-
 		case "Public":
 			result.PublicProfile = enabled
 		}
@@ -108,5 +111,6 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 			result.InboundAction = parseAction(p.DefaultInboundAction)
 		}
 	}
+
 	return result, nil
 }
