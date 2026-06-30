@@ -6,6 +6,7 @@ import (
 	"github.com/StackExchange/wmi"
 )
 
+// DefenderStatus represents the aggregate state of Windows Defender telemetry
 type DefenderStatus struct {
 	Status               string `json:"status"` // "Secure", "Action Required", or "Disabled"
 	RealTimeProtection   bool   `json:"real_time_protection"`
@@ -21,19 +22,29 @@ type DefenderStatus struct {
 	DefenderServiceState string `json:"defender_service_state"`
 }
 
+// MSFT_MpPreference handles raw policy configurations from Windows Defender
+type MSFT_MpPreference struct {
+	DisableRealtimeMonitoring bool `wmi:"DisableRealtimeMonitoring"`
+	DisableBehaviorMonitoring bool `wmi:"DisableBehaviorMonitoring"`
+	DisableIOAVProtection     bool `wmi:"DisableIOAVProtection"`
+}
+
+// MSFT_MpComputerStatus maps native WMI engine protection health states
 type MSFT_MpComputerStatus struct {
 	AntispywareEnabled            bool   `wmi:"AntispywareEnabled"`
 	AntivirusEnabled              bool   `wmi:"AntivirusEnabled"`
 	AntispywareSignatureVersion   string `wmi:"AntispywareSignatureVersion"`
-	AntivirusSignatureLastUpdated string `wmi:"AntivirusSignatureLastUpdated"` // Fixed type to string
+	AntivirusSignatureLastUpdated string `wmi:"AntivirusSignatureLastUpdated"`
 	QuickScanAge                  uint32 `wmi:"QuickScanAge"`
 	FullScanAge                   uint32 `wmi:"FullScanAge"`
 }
 
+// Win32Service reads the execution status lifecycle of underlying Windows NT services
 type Win32Service struct {
 	State string `wmi:"State"`
 }
 
+// GetDefenderStatus aggregates all subsystems to calculate runtime system endpoint safety posture
 func GetDefenderStatus() (*DefenderStatus, error) {
 	result := &DefenderStatus{
 		Status:               "Disabled",
@@ -42,55 +53,64 @@ func GetDefenderStatus() (*DefenderStatus, error) {
 		DefenderServiceState: "Stopped",
 	}
 
-	// Collect Defender preferences
+	// 1. Collect policy preferences
 	if err := getPreferences(result); err != nil {
 		return nil, err
 	}
 
-	// Collect signature information
+	// 2. Collect engine signature telemetry updates
 	if err := getSignatureDetails(result); err != nil {
 		return nil, err
 	}
 
-	// Verify Defender service state
+	// 3. Verify underlying service lifecycle state
 	if err := checkServiceFallback(result); err != nil {
 		return nil, err
 	}
 
-	// Compute overall health
+	// 4. Evaluate consolidated absolute health context
 	evaluateAggregateHealth(result)
 
 	return result, nil
 }
 
-func evaluateAggregateHealth(status *DefenderStatus) {
-	if status == nil {
-		return
+func getPreferences(status *DefenderStatus) error {
+	var prefs []MSFT_MpPreference
+
+	err := wmi.QueryNamespace(
+		`SELECT
+			DisableRealtimeMonitoring,
+			DisableBehaviorMonitoring,
+			DisableIOAVProtection
+		FROM MSFT_MpPreference`,
+		&prefs,
+		`ROOT\Microsoft\Windows\Defender`,
+	)
+	if err != nil {
+		return err
 	}
 
-	// Defender service is not running
-	if status.DefenderServiceState != "Running" {
-		status.Status = "Disabled"
-		return
+	if len(prefs) == 0 {
+		return nil
 	}
 
-	// Antivirus engine is disabled
-	if !status.AntivirusEnabled {
-		status.Status = "Disabled"
-		return
-	}
+	p := prefs[0]
 
-	// All major protections are enabled
-	if status.RealTimeProtection &&
-		status.BehaviorMonitoring &&
-		status.IOAVProtection &&
-		status.TamperProtection {
-		status.Status = "Secure"
-		return
+	status.RealTimeProtection = !p.DisableRealtimeMonitoring
+	status.BehaviorMonitoring = !p.DisableBehaviorMonitoring
+	status.IOAVProtection = !p.DisableIOAVProtection
+	tpm, err := GetTPMStatus()
+	tpmStatus := false
+	if err == nil && tpm != nil {
+		tpmStatus =
+			tpm.Present &&
+				tpm.Ready &&
+				tpm.Enabled &&
+				tpm.Activated
 	}
+	status.TamperProtection = tpmStatus
 
-	// Defender is running but one or more protections are disabled
-	status.Status = "Action Required"
+	return nil
 }
 
 func getSignatureDetails(status *DefenderStatus) error {
@@ -108,7 +128,7 @@ func getSignatureDetails(status *DefenderStatus) error {
 		status.AntivirusEnabled = c.AntivirusEnabled
 		status.SignatureVersion = c.AntispywareSignatureVersion
 
-		// Parse WMI CIM_DateTime string safely (e.g., "20260629...") into readable output
+		// Parse WMI high-precision Timestamp format safely (e.g., YYYYMMDDHHMMSS...)
 		if len(c.AntivirusSignatureLastUpdated) >= 14 {
 			raw := c.AntivirusSignatureLastUpdated
 			status.SignatureLastUpdated = fmt.Sprintf("%s-%s-%s %s:%s:%s",
@@ -116,28 +136,8 @@ func getSignatureDetails(status *DefenderStatus) error {
 		} else {
 			status.SignatureLastUpdated = c.AntivirusSignatureLastUpdated
 		}
-
 		status.QuickScanAge = c.QuickScanAge
 		status.FullScanAge = c.FullScanAge
-	}
-	return nil
-}
-
-func getPreferences(status *DefenderStatus) error {
-	var prefs []MSFT_MpPreference
-	query := "SELECT DisableRealtimeMonitoring, DisableBehaviorMonitoring, DisableIOAVProtection, EnableTamperProtection FROM MSFT_MpPreference"
-
-	err := wmi.QueryNamespace(query, &prefs, "ROOT\\Microsoft\\Windows\\Defender")
-	if err != nil {
-		return err
-	}
-
-	if len(prefs) > 0 {
-		p := prefs[0]
-		status.RealTimeProtection = !p.DisableRealtimeMonitoring
-		status.BehaviorMonitoring = !p.DisableBehaviorMonitoring
-		status.IOAVProtection = !p.DisableIOAVProtection
-		status.TamperProtection = (p.EnableTamperProtection == 4)
 	}
 	return nil
 }
@@ -162,4 +162,30 @@ func checkServiceFallback(status *DefenderStatus) error {
 		status.DefenderServiceState = "Unknown"
 	}
 	return nil
+}
+
+func evaluateAggregateHealth(status *DefenderStatus) {
+	if status == nil {
+		return
+	}
+
+	if status.DefenderServiceState != "Running" {
+		status.Status = "Disabled"
+		return
+	}
+
+	if !status.AntivirusEnabled {
+		status.Status = "Disabled"
+		return
+	}
+
+	if status.RealTimeProtection &&
+		status.BehaviorMonitoring &&
+		status.IOAVProtection &&
+		status.TamperProtection {
+		status.Status = "Secure"
+		return
+	}
+
+	status.Status = "Action Required"
 }

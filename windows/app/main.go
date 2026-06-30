@@ -2,8 +2,10 @@ package main
 
 import (
 	"embed"
+	"log"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
+	"github.com/fehmicorp/agent/windows/utils/runas"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -15,9 +17,9 @@ var assets embed.FS
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	// if err := runas.RequireAdministrator(); err != nil {
-	// 	log.Fatal(err)
-	// }
+	if err := runas.RequireAdministrator(); err != nil {
+		log.Fatal(err)
+	}
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",

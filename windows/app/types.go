@@ -15,14 +15,6 @@ type FirewallDetails struct {
 	PublicProfile  string // "Enabled" or "Disabled"
 }
 
-// Native Windows Defender WMI configuration mapping structure
-type MSFT_MpPreference struct {
-	DisableRealtimeMonitoring bool  `wmi:"DisableRealtimeMonitoring"`
-	DisableBehaviorMonitoring bool  `wmi:"DisableBehaviorMonitoring"`
-	DisableIOAVProtection     bool  `wmi:"DisableIOAVProtection"`
-	EnableTamperProtection    uint8 `wmi:"EnableTamperProtection"` // 0: Disabled, 4: Enabled
-}
-
 // Native Adva	nced Firewall WMI mapping structure
 type MSFT_NetFirewallProfileDetailed struct {
 	Enabled bool   `wmi:"Enabled"`
