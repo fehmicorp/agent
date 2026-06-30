@@ -1,15 +1,12 @@
-package main
+package defender
 
 import (
 	"encoding/json"
 	"fmt"
 	"os"
-
-	"golang.org/x/sys/windows"
 )
 
 func main() {
-	fmt.Println("Admin:", IsAdmin())
 	status, err := GetDefenderStatus()
 	if err != nil {
 		errPayload := map[string]string{"error": "Failed to collect Windows Defender metrics: " + err.Error()}
@@ -23,16 +20,4 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println(string(jsonOutput))
-}
-
-func IsAdmin() bool {
-	token := windows.GetCurrentProcessToken()
-	adminSid, _ := windows.CreateWellKnownSid(
-		windows.WinBuiltinAdministratorsSid,
-	)
-	member, err := token.IsMember(adminSid)
-	if err != nil {
-		return false
-	}
-	return member
 }

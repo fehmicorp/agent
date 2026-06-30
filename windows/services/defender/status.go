@@ -1,4 +1,4 @@
-package main
+package defender
 
 func GetDefenderStatus() (*DefenderStatus, error) {
 	result := &DefenderStatus{

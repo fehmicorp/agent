@@ -1,4 +1,4 @@
-package main
+package defender
 
 type DefenderStatus struct {
 	Status               string `json:"status"` // "Secure", "Action Required", or "Disabled"

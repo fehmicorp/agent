@@ -83,7 +83,7 @@ func formatToTitleCase(s string) string {
 	return string(r)
 }
 
-func (a *App) GetSystemDeviceInfo() DeviceInfo {
+func GetSystemDeviceInfo() DeviceInfo {
 	hostname, _ := os.Hostname()
 	currentUser, _ := user.Current()
 	osDisplay := getExactOSName()

@@ -1,4 +1,4 @@
-package main
+package defender
 
 func evaluateAggregateHealth(status *DefenderStatus) {
 	if !status.AntivirusEnabled || status.DefenderServiceState == "Stopped" {
