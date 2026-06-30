@@ -22,7 +22,6 @@ func IsAdmin() bool {
 	return member
 }
 
-// Changed from a method to a plain package function
 func RequestElevation() error {
 	if IsAdmin() {
 		return nil
@@ -55,6 +54,7 @@ func RequestElevation() error {
 
 	var showCmd int32 = windows.SW_NORMAL
 
+	// Use windows namespace for the API types
 	sei := &windows.ShellExecuteInfo{
 		Size:       uint32(windows.SizeofShellExecuteInfo),
 		Mask:       windows.SEE_MASK_NOASYNC,
@@ -67,6 +67,7 @@ func RequestElevation() error {
 		HInstApp:   0,
 	}
 
+	// Correct native Windows wrapper call
 	err = windows.ShellExecuteEx(sei)
 	if err != nil {
 		return fmt.Errorf("elevation prompt rejected or failed: %w", err)

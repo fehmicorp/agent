@@ -26,6 +26,31 @@ export namespace main {
 	        this.liveUsage = source["liveUsage"];
 	    }
 	}
+	export class MemoryDetails {
+	    used: string;
+	    capacity: string;
+	    totalslots: number;
+	    slotused: number;
+	    free: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new MemoryDetails(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.used = source["used"];
+	        this.capacity = source["capacity"];
+	        this.totalslots = source["totalslots"];
+	        this.slotused = source["slotused"];
+	        this.free = source["free"];
+	    }
+	}
+
+}
+
+export namespace metric {
+	
 	export class DeviceInfo {
 	    hostname: string;
 	    domain: string;
@@ -52,26 +77,6 @@ export namespace main {
 	        this.firewall = source["firewall"];
 	        this.tpm = source["tpm"];
 	        this.bitLocker = source["bitLocker"];
-	    }
-	}
-	export class MemoryDetails {
-	    used: string;
-	    capacity: string;
-	    totalslots: number;
-	    slotused: number;
-	    free: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new MemoryDetails(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.used = source["used"];
-	        this.capacity = source["capacity"];
-	        this.totalslots = source["totalslots"];
-	        this.slotused = source["slotused"];
-	        this.free = source["free"];
 	    }
 	}
 

@@ -3,7 +3,7 @@ import { cardMain, anim_1, spanText } from "../../utils/colour";
 import { Card, Info, Status } from "../../utils/func";
 
 // Import Wails runtime binds generated during standard go compilation routines
-import { GetSystemDeviceInfo } from "../../../wailsjs/go/main/App";
+import { DashboardUpdate } from "../../../wailsjs/go/main/App";
 import { EventsOn, EventsOff } from "../../../wailsjs/runtime/runtime";
 
 interface MetricCard {
@@ -62,7 +62,7 @@ export default function Dashboard(): React.JSX.Element {
   const [securityStatus, setSecurityStatus] = useState<StatusItem[]>([]);
 
   useEffect(() => {
-    GetSystemDeviceInfo().then((info) => {
+    DashboardUpdate().then((info) => {
       setDeviceInfo([
         { title: "Hostname", value: info.hostname },
         { title: "Domain", value: info.domain },

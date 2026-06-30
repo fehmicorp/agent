@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os/exec"
 	"strings"
+	"syscall"
 )
 
 type FirewallStatus struct {
@@ -76,6 +77,14 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 		`Get-NetFirewallProfile | Select-Object Name, Enabled, DefaultInboundAction | ConvertTo-Json`,
 	)
 
+	// FIXED: Hide the console window completely during background execution loop
+	// CREATE_NO_WINDOW is not defined on some Go versions' syscall package on Windows.
+	// Use the numeric value directly to avoid import changes: 0x08000000
+	const createNoWindow = 0x08000000
+	cmd.SysProcAttr = &syscall.SysProcAttr{
+		CreationFlags: createNoWindow,
+	}
+
 	out, err := cmd.Output()
 	if err != nil {
 		return result, err
@@ -84,9 +93,8 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 	var profiles []firewallProfile
 	if err := json.Unmarshal(out, &profiles); err != nil {
 		var single firewallProfile
-		// If single object JSON parsing works, overwrite error to nil
 		if err2 := json.Unmarshal(out, &single); err2 != nil {
-			return result, err // Returns original unmarshal error if both attempts fail
+			return result, err 
 		}
 		profiles = []firewallProfile{single}
 	}

@@ -5,8 +5,7 @@ go 1.26.4
 require (
 	github.com/StackExchange/wmi v1.2.1
 	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630082538-eda811c614a0
-	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630082538-eda811c614a0
-	github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260630082538-eda811c614a0
+	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630085821-f60870f97c69
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/wailsapp/wails/v2 v2.12.0
 	github.com/yusufpapurcu/wmi v1.2.4

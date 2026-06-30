@@ -10,6 +10,10 @@ type App struct {
 	ctx context.Context
 }
 
+func NewApp() *App {
+	return &App{}
+}
+
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	logger.Logger.Log("INFO", "Running with high integrity context. Spinning up metrics tickers...")
