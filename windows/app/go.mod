@@ -13,9 +13,9 @@ require (
 	git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b9d // indirect
-	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629120921-dcdaf40bf061 // indirect
-	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629131642-e4874c14b1f0 // indirect
-	github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629130757-4084c91e3b9d // indirect
+	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629132840-185f3d39f12c // indirect
+	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629132840-185f3d39f12c // indirect
+	github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629132840-185f3d39f12c // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect

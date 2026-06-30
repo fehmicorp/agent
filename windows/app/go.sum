@@ -12,10 +12,16 @@ github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b9d/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629120921-dcdaf40bf061 h1:6xI39R1rjtQPIthXG5X9qZ4rkMsrfXsAs70Cyh3nLls=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629120921-dcdaf40bf061/go.mod h1:T3wcPYLN1I/3l2llTnqJm9YTHqJizrnfc2QYCIMtI7k=
+github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629132840-185f3d39f12c h1:F9+JQPZsJc3wZNxXmhaIhDRxr54SMwMe6mq/x38n9TU=
+github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629132840-185f3d39f12c/go.mod h1:T3wcPYLN1I/3l2llTnqJm9YTHqJizrnfc2QYCIMtI7k=
 github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629131642-e4874c14b1f0 h1:f4Pw2UntPQcxHIhmOm1o7fMWMdiJkgT0N2t7SYNAP7M=
 github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629131642-e4874c14b1f0/go.mod h1:FhhzYsFEdlH/axAh/lTwF1+YynJZKvJ55Yy8/O0qtG4=
+github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629132840-185f3d39f12c h1:uxjBkQPojtaXfTkxPjIUVezadKFnJaE9c+Zg4VdT+Nk=
+github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260629132840-185f3d39f12c/go.mod h1:FhhzYsFEdlH/axAh/lTwF1+YynJZKvJ55Yy8/O0qtG4=
 github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629130757-4084c91e3b9d h1:LwuS2gIppVSkXorG2+RtuRXK93Z7RwJFM0djNJMyN4w=
 github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629130757-4084c91e3b9d/go.mod h1:qK8c7gzc/ieEcs9z2LZnGByScyjlszL0fOqDtrXWg8c=
+github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629132840-185f3d39f12c h1:rYU7KGHY1TBKo1WkDsRWAehtMlo0JyY7T8CNklmrQkk=
+github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260629132840-185f3d39f12c/go.mod h1:qK8c7gzc/ieEcs9z2LZnGByScyjlszL0fOqDtrXWg8c=
 github.com/go-ole/go-ole v1.2.5/go.mod h1:pprOEPIfldk/42T2oK7lQ4v4JSDwmV0As9GaiUsvbm0=
 github.com/go-ole/go-ole v1.2.6/go.mod h1:pprOEPIfldk/42T2oK7lQ4v4JSDwmV0As9GaiUsvbm0=
 github.com/go-ole/go-ole v1.3.0 h1:Dt6ye7+vXGIKZ7Xtk4s6/xVdGDQynvom7xCFEdWr6uE=
