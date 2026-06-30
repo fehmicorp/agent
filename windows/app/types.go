@@ -1,17 +1,5 @@
 package main
 
-type DeviceInfo struct {
-	Hostname        string `json:"hostname"`
-	Domain          string `json:"domain"`
-	User            string `json:"user"`
-	OS              string `json:"os"`
-	AgentVersion    string `json:"agentVersion"`
-	WindowsDefender bool   `json:"windowsDefender"`
-	Firewall        bool   `json:"firewall"`
-	TPM             bool   `json:"tpm"`
-	BitLocker       bool   `json:"bitLocker"`
-}
-
 type DefenderDetails struct {
 	Status             string // Overall Status: "Secure", "Action Required", or "Disabled"
 	RealTimeProtection string // "Enabled" or "Disabled"

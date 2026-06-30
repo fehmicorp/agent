@@ -45,7 +45,7 @@ func (a *App) StartMetric(intervalMs int) {
 	}
 }
 
-func (a *App) DashboardUpdate() DeviceInfo {
+func (a *App) DashboardUpdate() metric.DeviceInfo {
 	data, err := metric.GetSystemDeviceInfo()
 	if err != nil {
 		errStr := err.Error()
@@ -60,7 +60,6 @@ func (a *App) DashboardUpdate() DeviceInfo {
 				}
 			}
 		}
-	} else {
-		return data
 	}
+	return data
 }
