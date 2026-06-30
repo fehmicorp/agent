@@ -70,20 +70,16 @@ export default function Dashboard(): React.JSX.Element {
         { title: "OS", value: info.os },
         { title: "Agent Version", value: info.agentVersion },
       ]);
-      
-      console.log(info.firewall.toLowerCase())
       setSecurityStatus([
-        { title: "Windows Defender", value: info.windowsDefender.toLowerCase() === "enabled" },
-        { title: "Firewall", value: info.firewall.toLowerCase() === "enabled" },
-        { title: "TPM", value: info.tpm.toLowerCase() === "enabled" },
-        { title: "BitLocker", value: info.bitLocker.toLowerCase() === "enabled" },
+        { title: "Windows Defender", value: info.windowsDefender},
+        { title: "Firewall", value: info.firewall},
+        { title: "TPM", value: info.tpm},
+        { title: "BitLocker", value: info.bitLocker},
       ]);
     }).catch(err => console.error(err));
 
     const handleMetricsUpdate = (data: any) => {
-      // Strips percentage symbols to let the UI component read numbers correctly
       const cleanInt = (val: string) => parseInt(val.replace("%", ""), 10) || 0;
-
       setStats([
         { title: "CPU Usage", value: cleanInt(data.cpu) },
         { title: "RAM Usage", value: cleanInt(data.ram) },

@@ -32,10 +32,10 @@ export namespace main {
 	    user: string;
 	    os: string;
 	    agentVersion: string;
-	    windowsDefender: string;
-	    firewall: string;
-	    tpm: string;
-	    bitLocker: string;
+	    windowsDefender: boolean;
+	    firewall: boolean;
+	    tpm: boolean;
+	    bitLocker: boolean;
 	
 	    static createFrom(source: any = {}) {
 	        return new DeviceInfo(source);
