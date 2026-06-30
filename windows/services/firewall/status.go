@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"os/exec"
 	"strings"
-	"syscall"
+
+	"golang.org/x/sys/windows"
 )
 
 type FirewallStatus struct {
@@ -32,7 +33,7 @@ func parseBool(v interface{}) bool {
 	case int:
 		return x == 1
 	case string:
-		switch strings.ToLower(x) {
+		switch strings.ToLower(strings.TrimSpace(x)) {
 		case "true", "1", "enabled":
 			return true
 		}
@@ -42,8 +43,16 @@ func parseBool(v interface{}) bool {
 
 func parseAction(v interface{}) string {
 	switch x := v.(type) {
+
 	case string:
+		switch strings.ToLower(strings.TrimSpace(x)) {
+		case "allow":
+			return "Allow"
+		case "block":
+			return "Block"
+		}
 		return x
+
 	case float64:
 		switch int(x) {
 		case 1:
@@ -51,6 +60,7 @@ func parseAction(v interface{}) string {
 		case 2:
 			return "Block"
 		}
+
 	case int:
 		switch x {
 		case 1:
@@ -59,10 +69,12 @@ func parseAction(v interface{}) string {
 			return "Block"
 		}
 	}
+
 	return "Unknown"
 }
 
 func GetFirewallStatus() (*FirewallStatus, error) {
+
 	result := &FirewallStatus{
 		Status:          "Disabled",
 		FirewallService: "Stopped",
@@ -70,31 +82,35 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 	}
 
 	cmd := exec.Command(
-		"powershell",
+		"powershell.exe",
+		"-NoLogo",
 		"-NoProfile",
+		"-NonInteractive",
 		"-ExecutionPolicy", "Bypass",
 		"-Command",
-		`Get-NetFirewallProfile | Select-Object Name, Enabled, DefaultInboundAction | ConvertTo-Json`,
+		`Get-NetFirewallProfile |
+		Select-Object Name,Enabled,DefaultInboundAction |
+		ConvertTo-Json -Compress`,
 	)
 
-	// FIXED: Hide the console window completely during background execution loop
-	// CREATE_NO_WINDOW is not defined on some Go versions' syscall package on Windows.
-	// Use the numeric value directly to avoid import changes: 0x08000000
-	const createNoWindow = 0x08000000
-	cmd.SysProcAttr = &syscall.SysProcAttr{
-		CreationFlags: createNoWindow,
+	// Run completely hidden
+	cmd.SysProcAttr = &windows.SysProcAttr{
+		HideWindow:    true,
+		CreationFlags: windows.CREATE_NO_WINDOW,
 	}
 
-	out, err := cmd.Output()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return result, err
 	}
 
 	var profiles []firewallProfile
+
+	// PowerShell returns an object instead of an array when only one item exists
 	if err := json.Unmarshal(out, &profiles); err != nil {
 		var single firewallProfile
 		if err2 := json.Unmarshal(out, &single); err2 != nil {
-			return result, err 
+			return result, err
 		}
 		profiles = []firewallProfile{single}
 	}
@@ -102,21 +118,29 @@ func GetFirewallStatus() (*FirewallStatus, error) {
 	result.FirewallService = "Running"
 
 	for _, p := range profiles {
+
 		enabled := parseBool(p.Enabled)
+
 		if enabled {
 			result.Enabled = true
 			result.Status = "Enabled"
 		}
-		switch p.Name {
+
+		switch strings.TrimSpace(p.Name) {
+
 		case "Domain":
 			result.DomainProfile = enabled
+
 		case "Private":
 			result.PrivateProfile = enabled
+
 		case "Public":
 			result.PublicProfile = enabled
 		}
-		if p.DefaultInboundAction != "" {
-			result.InboundAction = parseAction(p.DefaultInboundAction)
+
+		action := parseAction(p.DefaultInboundAction)
+		if action != "Unknown" {
+			result.InboundAction = action
 		}
 	}
 

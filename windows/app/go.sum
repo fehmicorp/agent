@@ -10,8 +10,10 @@ github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630085821-f60870f97c
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630085821-f60870f97c69/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630085821-f60870f97c69 h1:N7xzcxlDsv3xVfHT0IAZTCwtAJWv/xHOtIem0maBWIs=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630085821-f60870f97c69/go.mod h1:T3wcPYLN1I/3l2llTnqJm9YTHqJizrnfc2QYCIMtI7k=
-github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630085821-f60870f97c69 h1:Lsi95OwCgFp4FlV8V62d5wh9KSJkaDGfv2nlDVKboMU=
-github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630085821-f60870f97c69/go.mod h1:kYBAXCO4zf1/kdKyJnZYcAPdBt4QcPctbJcs5PoziDs=
+github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630092959-abe5f2085129 h1:8T0heSmvGUHmexqG+zWpPg81MMfvT8NRvwc946UQRhc=
+github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630092959-abe5f2085129/go.mod h1:kYBAXCO4zf1/kdKyJnZYcAPdBt4QcPctbJcs5PoziDs=
+github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260630092959-abe5f2085129 h1:63X+lwXztt4ss1WMYWZJ/qtqi9orKiZHz7XHo/yrDfo=
+github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260630092959-abe5f2085129/go.mod h1:qK8c7gzc/ieEcs9z2LZnGByScyjlszL0fOqDtrXWg8c=
 github.com/go-ole/go-ole v1.2.5/go.mod h1:pprOEPIfldk/42T2oK7lQ4v4JSDwmV0As9GaiUsvbm0=
 github.com/go-ole/go-ole v1.2.6/go.mod h1:pprOEPIfldk/42T2oK7lQ4v4JSDwmV0As9GaiUsvbm0=
 github.com/go-ole/go-ole v1.3.0 h1:Dt6ye7+vXGIKZ7Xtk4s6/xVdGDQynvom7xCFEdWr6uE=

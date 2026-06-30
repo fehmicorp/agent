@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
-	log "github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/fehmicorp/agent/windows/services/metric"
 	"github.com/shirou/gopsutil/v3/net"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -24,7 +23,28 @@ type UsageStats struct {
 	Network string `json:"network"`
 }
 
+func (a *App) fetchAndEmit() {
+	cpuStr := metric.GetCPUUsage()
+	ramStr := metric.GetRAMUsage()
+	diskStr := metric.GetDiskUsage("C:")
+	_, rxStr, err := metric.GetNetwork()
+	netStr := "↓ 0B"
+	if err == nil {
+		netStr = fmt.Sprintf("↓ %s", rxStr)
+	} else {
+		logger.Logger.Log("ERROR", "Network monitoring metrics update dropped: "+err.Error())
+	}
+
+	runtime.EventsEmit(a.ctx, "metrics_update", UsageStats{
+		CPU:     cpuStr,
+		RAM:     ramStr,
+		Disk:    diskStr,
+		Network: netStr,
+	})
+}
+
 func (a *App) StartMetric(intervalMs int) {
+	a.fetchAndEmit()
 	ticker := time.NewTicker(time.Duration(intervalMs) * time.Millisecond)
 	defer ticker.Stop()
 	for {
@@ -32,22 +52,7 @@ func (a *App) StartMetric(intervalMs int) {
 		case <-a.ctx.Done():
 			return
 		case <-ticker.C:
-			cpuStr := metric.GetCPUUsage()
-			ramStr := metric.GetRAMUsage()
-			diskStr := metric.GetDiskUsage("C:")
-			_, rxStr, err := metric.GetNetwork()
-			netStr := "↓ 0B"
-			if err == nil {
-				netStr = fmt.Sprintf("↓ %s", rxStr)
-			} else {
-				log.Logger.Log("ERROR", "Network monitoring metrics update dropped: "+err.Error())
-			}
-			runtime.EventsEmit(a.ctx, "metrics_update", UsageStats{
-				CPU:     cpuStr,
-				RAM:     ramStr,
-				Disk:    diskStr,
-				Network: netStr,
-			})
+			a.fetchAndEmit()
 		}
 	}
 }
