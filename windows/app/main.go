@@ -7,6 +7,7 @@ import (
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 //go:embed all:frontend/dist
@@ -15,21 +16,21 @@ var assets embed.FS
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	// if !runas.IsAdmin() {
-	// 	logger.Logger.Log("WARN", "Application requires administrative permissions. Requesting UAC elevation...")
-	// 	err := runas.RequestElevation()
-	// 	if err != nil {
-	// 		logger.Logger.Log("ERROR", "UAC prompt escalation rejected or aborted: "+err.Error())
-	// 		runtime.Quit(a.ctx)
-	// 		return
-	// 	}
-	// }
+	if !runas.IsAdmin() {
+		logger.Logger.Log("WARN", "Application requires administrative permissions. Requesting UAC elevation...")
+		err := runas.RequestElevation()
+		if err != nil {
+			logger.Logger.Log("ERROR", "UAC prompt escalation rejected or aborted: "+err.Error())
+			runtime.Quit(a.ctx)
+			return
+		}
+	}
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",
 		DisableResize: true,
 		Width:         650,
-		Height:        500,
+		Height:        550,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
