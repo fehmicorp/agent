@@ -8,8 +8,12 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630085821-f60870f97c69 h1:2nw9qKmM2nMGv8PTRIk5IPdI9Ppx4p1N9CgjqFNPQl0=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630085821-f60870f97c69/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
+github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630092959-abe5f2085129 h1:VC+aoCvhgUG8eHt0AWoAyvZBd2frL+LN0V+WquqGgkM=
+github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630092959-abe5f2085129/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630085821-f60870f97c69 h1:N7xzcxlDsv3xVfHT0IAZTCwtAJWv/xHOtIem0maBWIs=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630085821-f60870f97c69/go.mod h1:T3wcPYLN1I/3l2llTnqJm9YTHqJizrnfc2QYCIMtI7k=
+github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630092959-abe5f2085129 h1:2AI4nEz9ZlKIMcGBpBxTFDosL2c9SpkBtFK1NMOqPAo=
+github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630092959-abe5f2085129/go.mod h1:T3wcPYLN1I/3l2llTnqJm9YTHqJizrnfc2QYCIMtI7k=
 github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630092959-abe5f2085129 h1:8T0heSmvGUHmexqG+zWpPg81MMfvT8NRvwc946UQRhc=
 github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630092959-abe5f2085129/go.mod h1:kYBAXCO4zf1/kdKyJnZYcAPdBt4QcPctbJcs5PoziDs=
 github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260630092959-abe5f2085129 h1:63X+lwXztt4ss1WMYWZJ/qtqi9orKiZHz7XHo/yrDfo=
