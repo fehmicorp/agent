@@ -75,15 +75,30 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 		fwStatus = fw.Enabled
 	}
 
+	def, err := GetDefenderStatus()
+
+	defStatus := false
+
+	tpmStatus := false
+
+	if err != nil {
+		errSummary = append(errSummary, "defender: "+err.Error())
+	} else if def != nil {
+		defStatus = def.AntivirusEnabled &&
+			def.RealTimeProtection &&
+			def.DefenderServiceState == "Running"
+
+		tpmStatus = def.TamperProtection
+	}
 	data := DeviceInfo{
 		Hostname:        hostname,
 		Domain:          domain,
 		User:            username,
 		OS:              osDisplay,
 		AgentVersion:    "v1.0.1",
-		WindowsDefender: false,
+		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
-		TPM:             false,
+		TPM:             tpmStatus,
 		BitLocker:       false,
 	}
 	if len(errSummary) > 0 {

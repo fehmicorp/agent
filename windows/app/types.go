@@ -23,7 +23,7 @@ type MSFT_MpPreference struct {
 	EnableTamperProtection    uint8 `wmi:"EnableTamperProtection"` // 0: Disabled, 4: Enabled
 }
 
-// Native Advanced Firewall WMI mapping structure
+// Native Adva	nced Firewall WMI mapping structure
 type MSFT_NetFirewallProfileDetailed struct {
 	Enabled bool   `wmi:"Enabled"`
 	Profile uint16 `wmi:"Profile"` // 1: Domain, 2: Private, 4: Public

@@ -8,31 +8,53 @@ func GetDefenderStatus() (*DefenderStatus, error) {
 		DefenderServiceState: "Stopped",
 	}
 
-	// Bubble up any underlying query issues if they happen
+	// Collect Defender preferences
 	if err := getPreferences(result); err != nil {
 		return nil, err
 	}
+
+	// Collect signature information
 	if err := getSignatureDetails(result); err != nil {
 		return nil, err
 	}
+
+	// Verify Defender service state
 	if err := checkServiceFallback(result); err != nil {
 		return nil, err
 	}
 
+	// Compute overall health
 	evaluateAggregateHealth(result)
 
 	return result, nil
 }
 
 func evaluateAggregateHealth(status *DefenderStatus) {
-	if !status.AntivirusEnabled || status.DefenderServiceState == "Stopped" {
+	if status == nil {
+		return
+	}
+
+	// Defender service is not running
+	if status.DefenderServiceState != "Running" {
 		status.Status = "Disabled"
 		return
 	}
 
-	if status.RealTimeProtection && status.TamperProtection {
-		status.Status = "Secure"
-	} else {
-		status.Status = "Action Required"
+	// Antivirus engine is disabled
+	if !status.AntivirusEnabled {
+		status.Status = "Disabled"
+		return
 	}
+
+	// All major protections are enabled
+	if status.RealTimeProtection &&
+		status.BehaviorMonitoring &&
+		status.IOAVProtection &&
+		status.TamperProtection {
+		status.Status = "Secure"
+		return
+	}
+
+	// Defender is running but one or more protections are disabled
+	status.Status = "Action Required"
 }
