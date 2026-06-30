@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"log"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/wailsapp/wails/v2"
@@ -24,9 +23,9 @@ func RequireAdministrator() error {
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	if err := RequireAdministrator(); err != nil {
-		log.Fatal(err)
-	}
+	// if err := RequireAdministrator(); err != nil {
+	// 	log.Fatal(err)
+	// }
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",

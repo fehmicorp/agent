@@ -56,14 +56,12 @@ export default function App() {
   const runningJobsCount = jobs.filter((j) => j.status === "running").length;
 
   return (
-    // Fixed layout container context to a strict full viewport height box layout
     <div className="h-screen w-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-white relative overflow-hidden font-mono flex flex-col">
       <Suspense fallback={
         <div className="p-4">
-          Loading...
+          Getting things ready...
         </div>
       }>
-        {/* Swapped min-h-screen for a structured flex container wrapper */}
         <div className="bg-stone-100 dark:bg-stone-950 flex flex-col flex-1 h-full min-h-0 overflow-hidden">
           {
             route === "agent" 

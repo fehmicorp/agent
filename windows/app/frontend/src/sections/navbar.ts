@@ -7,6 +7,7 @@ import {
   // FileText,
   // Package,
   // LifeBuoy,
+  Monitor,
 } from "lucide-react";
 
 export const navItems = [
@@ -35,9 +36,9 @@ export const navItems = [
   //   route: "support",
   //   icon: LifeBuoy,
   // },
-  // {
-  //   title: "Agent",
-  //   route: "agent",
-  //   icon: Monitor,
-  // },
+  {
+    title: "Agent",
+    route: "agent",
+    icon: Monitor,
+  },
 ];
