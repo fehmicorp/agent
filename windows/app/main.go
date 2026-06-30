@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"log"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/wailsapp/wails/v2"
@@ -12,17 +13,20 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+func RequireAdministrator() error {
+	if IsAdmin() {
+		return nil
+	}
+
+	return RequestElevation()
+}
+
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
-	// if !runas.IsAdmin() {
-	// 	logger.Logger.Log("WARN", "Application requires administrative permissions. Requesting UAC elevation...")
-	// 	err := runas.RequestElevation()
-	// 	if err != nil {
-	// 		logger.Logger.Log("ERROR", "UAC prompt escalation rejected: "+err.Error())
-	// 		return
-	// 	}
-	// }
+	if err := RequireAdministrator(); err != nil {
+		log.Fatal(err)
+	}
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:         "Fehmi Endpoint Agent",
