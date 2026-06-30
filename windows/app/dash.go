@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/fehmicorp/agent/windows/debug/logger"
+	"github.com/fehmicorp/agent/windows/services/defender"
 	"github.com/fehmicorp/agent/windows/services/firewall"
 	"github.com/fehmicorp/agent/windows/services/metric"
 	"github.com/shirou/gopsutil/v3/net"
@@ -84,7 +85,7 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 		fwStatus = fw.Enabled
 	}
 
-	def, err := GetDefenderStatus()
+	def, err := defender.GetDefenderStatus()
 
 	defStatus := false
 
@@ -99,6 +100,18 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 
 		tpmStatus = def.TamperProtection
 	}
+	bitlockerStatus := false
+	blVolumes, err := GetBitLockerStatus()
+	if err != nil {
+		errSummary = append(errSummary, "bitlocker: "+err.Error())
+	} else {
+		for _, vol := range blVolumes {
+			if vol.DriveLetter == "C:" && vol.IsEncrypted {
+				bitlockerStatus = true
+				break
+			}
+		}
+	}
 	data := metric.DeviceInfo{
 		Hostname:        hostname,
 		Domain:          domain,
@@ -108,7 +121,7 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
 		TPM:             tpmStatus,
-		BitLocker:       false,
+		BitLocker:       bitlockerStatus,
 	}
 	if len(errSummary) > 0 {
 		return data, fmt.Errorf("device info metrics completed with errors: [%s]", strings.Join(errSummary, "; "))
