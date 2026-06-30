@@ -4,10 +4,10 @@ go 1.26.4
 
 require (
 	github.com/StackExchange/wmi v1.2.1
-	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630114541-606431d8f74d
+	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630131353-8a1cced43430
 	github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3
-	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630114541-606431d8f74d
-	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630114541-606431d8f74d
+	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630131353-8a1cced43430
+	github.com/fehmicorp/agent/windows/services/metric v0.0.0-20260630131353-8a1cced43430
 	github.com/fehmicorp/agent/windows/utils/runas v0.0.0-20260630114541-606431d8f74d
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/wailsapp/wails/v2 v2.12.0

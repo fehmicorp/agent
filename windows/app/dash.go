@@ -106,7 +106,10 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 		errSummary = append(errSummary, "bitlocker: "+err.Error())
 	} else {
 		for _, vol := range blVolumes {
-			if vol.DriveLetter == "C:" && vol.IsEncrypted {
+			if strings.EqualFold(vol.Drive, "C:") &&
+				vol.Encrypted &&
+				vol.ProtectionEnabled {
+
 				bitlockerStatus = true
 				break
 			}
