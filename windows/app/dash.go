@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"os/user"
 	"strings"
 	"time"
 	"unicode"
 
 	"github.com/StackExchange/wmi"
+	"github.com/fehmicorp/agent/windows/debug/logger"
 	log "github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/fehmicorp/agent/windows/services/metric"
 	"github.com/shirou/gopsutil/v3/host"
@@ -83,36 +82,57 @@ func formatToTitleCase(s string) string {
 	return string(r)
 }
 
-func GetSystemDeviceInfo() DeviceInfo {
-	hostname, _ := os.Hostname()
-	currentUser, _ := user.Current()
-	osDisplay := getExactOSName()
-	username := "Administrator"
-	domain := formatToTitleCase(getWmiDomain())
-	defender := getDefender()
-	firewall := getFirewall()
-	if currentUser != nil {
-		rawUsername := currentUser.Username
-		if strings.Contains(rawUsername, "\\") {
-			parts := strings.Split(rawUsername, "\\")
-			username = parts[len(parts)-1]
-		} else {
-			username = rawUsername
+func (a *App) DashboardUpdate() DeviceInfo {
+	data, err := metric.GetSystemDeviceInfo()
+	if err != nil {
+		logger.Logger.Log("ERROR", "System device metrics extraction completed with partial degradation: "+err.Error())
+		errStr := err.Error()
+		if start := strings.Index(errStr, "["); start != -1 {
+			if end := strings.LastIndex(errStr, "]"); end > start {
+				rawErrors := errStr[start+1 : end]
+				individualErrors := strings.Split(rawErrors, "; ")
+				for _, singleErr := range individualErrors {
+					if singleErr != "" {
+						logger.Logger.Log("WARN", "Subsystem Failure Details -> "+singleErr)
+					}
+				}
+			}
 		}
-	}
-
-	Logger.Log("INFO", "Device info layout requested and built successfully")
-	Logger.Log("SECURITY", fmt.Sprintf("Defender Overall: %s | Realtime: %s | Tamper: %s", defender.Status, defender.RealTimeProtection, defender.TamperProtection))
-	Logger.Log("SECURITY", fmt.Sprintf("Firewall Overall: %s | Private: %s | Public: %s", firewall.Status, firewall.PrivateProfile, firewall.PublicProfile))
-	return DeviceInfo{
-		Hostname:        hostname,
-		Domain:          domain,
-		User:            username,
-		OS:              osDisplay,
-		AgentVersion:    "v1.0.1",
-		WindowsDefender: defender.Status,
-		Firewall:        firewall.Status,
-		TPM:             "Enabled",
-		BitLocker:       "Disabled",
+	} else {
+		return data
 	}
 }
+
+// func GetSystemDeviceInfo() DeviceInfo {
+// 	hostname, _ := os.Hostname()
+// 	currentUser, _ := user.Current()
+// 	osDisplay := getExactOSName()
+// 	username := "Administrator"
+// 	domain := formatToTitleCase(getWmiDomain())
+// 	defender := getDefender()
+// 	firewall := getFirewall()
+// 	if currentUser != nil {
+// 		rawUsername := currentUser.Username
+// 		if strings.Contains(rawUsername, "\\") {
+// 			parts := strings.Split(rawUsername, "\\")
+// 			username = parts[len(parts)-1]
+// 		} else {
+// 			username = rawUsername
+// 		}
+// 	}
+
+// 	Logger.Log("INFO", "Device info layout requested and built successfully")
+// 	Logger.Log("SECURITY", fmt.Sprintf("Defender Overall: %s | Realtime: %s | Tamper: %s", defender.Status, defender.RealTimeProtection, defender.TamperProtection))
+// 	Logger.Log("SECURITY", fmt.Sprintf("Firewall Overall: %s | Private: %s | Public: %s", firewall.Status, firewall.PrivateProfile, firewall.PublicProfile))
+// 	return DeviceInfo{
+// 		Hostname:        hostname,
+// 		Domain:          domain,
+// 		User:            username,
+// 		OS:              osDisplay,
+// 		AgentVersion:    "v1.0.1",
+// 		WindowsDefender: defender.Status,
+// 		Firewall:        firewall.Status,
+// 		TPM:             "Enabled",
+// 		BitLocker:       "Disabled",
+// 	}
+// }

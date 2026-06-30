@@ -6,10 +6,10 @@ type DeviceInfo struct {
 	User            string `json:"user"`
 	OS              string `json:"os"`
 	AgentVersion    string `json:"agentVersion"`
-	WindowsDefender string `json:"windowsDefender"`
-	Firewall        string `json:"firewall"`
-	TPM             string `json:"tpm"`
-	BitLocker       string `json:"bitLocker"`
+	WindowsDefender bool   `json:"windowsDefender"`
+	Firewall        bool   `json:"firewall"`
+	TPM             bool   `json:"tpm"`
+	BitLocker       bool   `json:"bitLocker"`
 }
 
 type DefenderDetails struct {
