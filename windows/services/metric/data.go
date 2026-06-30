@@ -8,6 +8,7 @@ import (
 	"unicode"
 
 	"github.com/StackExchange/wmi"
+	"github.com/fehmicorp/agent/windows/services/defender"
 	"github.com/fehmicorp/agent/windows/services/firewall"
 	"github.com/shirou/gopsutil/host"
 )
@@ -75,12 +76,9 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 		fwStatus = fw.Enabled
 	}
 
-	def, err := GetDefenderStatus()
-
+	def, err := defender.GetDefenderStatus()
 	defStatus := false
-
 	tpmStatus := false
-
 	if err != nil {
 		errSummary = append(errSummary, "defender: "+err.Error())
 	} else if def != nil {
