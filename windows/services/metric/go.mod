@@ -5,6 +5,7 @@ go 1.26.4
 require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630082538-eda811c614a0 // indirect
+	github.com/fehmicorp/agent/windows/services/bitlocker v0.0.0-20260630133320-4a2d20ccb3ab // indirect
 	github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3 // indirect
 	github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630075511-c8e8e98734cb // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect

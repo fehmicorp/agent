@@ -4,6 +4,8 @@ github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260629130757-4084c91e3b9d/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630082538-eda811c614a0 h1:ly9VMAyl+jw7qy7Mf/QmU01G0wfCxcQ3RwytbqMRgTw=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630082538-eda811c614a0/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
+github.com/fehmicorp/agent/windows/services/bitlocker v0.0.0-20260630133320-4a2d20ccb3ab h1:+y0/Y4sbtVOXAMzEk5UL10G6wJGsqGMlFE3ehHSPZk8=
+github.com/fehmicorp/agent/windows/services/bitlocker v0.0.0-20260630133320-4a2d20ccb3ab/go.mod h1:NZoBBETKMHaxOz+AhylC669NKHo5qPKGaiGPc5A0mng=
 github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3 h1:1/Qasbt0zeKLpPpUNn7fXk9fK9H641ZwS8TRfz5sUCk=
 github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3/go.mod h1:Gx6SGQ0RSSt6kMh1aL0K3cir9Rm8djPxf+cwNwzgGAY=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260629132840-185f3d39f12c h1:F9+JQPZsJc3wZNxXmhaIhDRxr54SMwMe6mq/x38n9TU=

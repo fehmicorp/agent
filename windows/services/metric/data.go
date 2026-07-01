@@ -8,6 +8,7 @@ import (
 	"unicode"
 
 	"github.com/StackExchange/wmi"
+	"github.com/fehmicorp/agent/windows/services/bitlocker"
 	"github.com/fehmicorp/agent/windows/services/defender"
 	"github.com/fehmicorp/agent/windows/services/firewall"
 	"github.com/shirou/gopsutil/host"
@@ -88,6 +89,20 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 
 		tpmStatus = def.TamperProtection
 	}
+	bitlockerStatus := false
+	blVolumes, err := bitlocker.GetBitLockerStatus()
+	if err != nil {
+		errSummary = append(errSummary, "bitlocker: "+err.Error())
+	} else {
+		for _, vol := range blVolumes {
+			if strings.EqualFold(vol.Drive, "C:") &&
+				vol.Encrypted &&
+				vol.ProtectionEnabled {
+				bitlockerStatus = true
+				break
+			}
+		}
+	}
 	data := DeviceInfo{
 		Hostname:        hostname,
 		Domain:          domain,
@@ -97,7 +112,7 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
 		TPM:             tpmStatus,
-		BitLocker:       false,
+		BitLocker:       bitlockerStatus,
 	}
 	if len(errSummary) > 0 {
 		return data, fmt.Errorf("device info metrics completed with errors: [%s]", strings.Join(errSummary, "; "))
