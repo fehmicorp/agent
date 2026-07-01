@@ -120,7 +120,7 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 		Domain:          domain,
 		User:            username,
 		OS:              osDisplay,
-		AgentVersion:    "v1.0.1",
+		AgentVersion:    Version + "-" + Type,
 		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
 		TPM:             tpmStatus,
@@ -134,6 +134,7 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 
 func (a *App) DashboardUpdate() metric.DeviceInfo {
 	data, err := GetSystemDeviceInfo()
+	data.AgentVersion = Version + "-" + Type
 	if err != nil {
 		errStr := err.Error()
 		if start := strings.Index(errStr, "["); start != -1 {

@@ -108,7 +108,7 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 		Domain:          domain,
 		User:            username,
 		OS:              osDisplay,
-		AgentVersion:    "v1.0.1",
+		AgentVersion:    "",
 		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
 		TPM:             tpmStatus,

@@ -14,6 +14,18 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+const (
+	AppName    = "Fehmi Endpoint Agent"
+	AppBuild   = "2026.06.30"
+	AppCompany = "Fehmi Corporation"
+)
+
+var (
+	Version = ""
+	Build   = ""
+	Type    = ""
+)
+
 func main() {
 	logger.InitLogger("", "")
 	defer logger.Logger.Close()
