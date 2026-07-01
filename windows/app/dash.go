@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fehmicorp/agent/windows/config/appinfo"
 	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/fehmicorp/agent/windows/services/defender"
 	"github.com/fehmicorp/agent/windows/services/firewall"
@@ -132,7 +133,19 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 	return data, nil
 }
 
-func (a *App) AppInfo()
+func (a *App) AppInfo() appinfo.AppInfo {
+	return appinfo.AppInfo{
+		Name:        appinfo.AppName,
+		Version:     appinfo.AppVersion,
+		Build:       appinfo.AppBuild,
+		Type:        appinfo.Type,
+		BuildType:   appinfo.AppBuildType,
+		Company:     appinfo.AppCompany,
+		Website:     appinfo.AppWebsite,
+		Endpoint:    appinfo.AppEndpoint,
+		Description: appinfo.AppDescription,
+	}
+}
 
 func (a *App) DashboardUpdate() metric.DeviceInfo {
 	data, err := GetSystemDeviceInfo()
