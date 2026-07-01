@@ -132,9 +132,11 @@ func GetSystemDeviceInfo() (metric.DeviceInfo, error) {
 	return data, nil
 }
 
+func (a *App) AppInfo()
+
 func (a *App) DashboardUpdate() metric.DeviceInfo {
 	data, err := GetSystemDeviceInfo()
-	data.AgentVersion = Version + "-" + Type
+	data.AgentVersion = Version + "-" + BuildType
 	if err != nil {
 		errStr := err.Error()
 		if start := strings.Index(errStr, "["); start != -1 {

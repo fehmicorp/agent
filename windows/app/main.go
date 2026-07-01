@@ -4,6 +4,7 @@ import (
 	"embed"
 	"log"
 
+	"github.com/fehmicorp/agent/windows/config/appinfo"
 	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/fehmicorp/agent/windows/utils/runas"
 	"github.com/wailsapp/wails/v2"
@@ -21,9 +22,9 @@ const (
 )
 
 var (
-	Version = ""
-	Build   = ""
-	Type    = ""
+	Version   = appinfo.Version
+	Build     = appinfo.Build
+	BuildType = appinfo.BuildType
 )
 
 func main() {
