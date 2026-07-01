@@ -8,6 +8,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630131353-8a1cced43430 h1:WuPCLN8ltqViDZZy6mtUQq3ZB/q8OjsQWQsWLHtVeOs=
 github.com/fehmicorp/agent/windows/debug/logger v0.0.0-20260630131353-8a1cced43430/go.mod h1:ID0fLdTU4xx0R5OU4yYwl0NdaqmJl497Ayk41cxIiBs=
+github.com/fehmicorp/agent/windows/pkg/storage v0.0.0-20260701113103-aa41efd44dd8 h1:2C/D5xWrHPvSWSUk4iu9nQlg24x2h/71Pvc7W9nOPvg=
+github.com/fehmicorp/agent/windows/pkg/storage v0.0.0-20260701113103-aa41efd44dd8/go.mod h1:/Ri5fbuKyHJXNIgfkBfDp9y62iOgu2uU654GllvbrSU=
 github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3 h1:1/Qasbt0zeKLpPpUNn7fXk9fK9H641ZwS8TRfz5sUCk=
 github.com/fehmicorp/agent/windows/services/defender v0.0.0-20260630130813-e7e9d32d4ca3/go.mod h1:Gx6SGQ0RSSt6kMh1aL0K3cir9Rm8djPxf+cwNwzgGAY=
 github.com/fehmicorp/agent/windows/services/firewall v0.0.0-20260630131353-8a1cced43430 h1:+EkdNm/r7RlOojWvnAMtMhJ/HKqCf5HuWaK9Cj7Bkbc=
