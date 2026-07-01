@@ -7,13 +7,20 @@ import (
 	"path/filepath"
 )
 
+// Standard Base Path Topography Structure Configurations
+var (
+	BaseDir    = "C:\\ProgramData\\Fehmi"
+	BaseData   = BaseDir + "\\agent\\data"
+	BaseConfig = BaseDir + "\\agent\\config"
+	BaseLogs   = BaseDir + "\\agent\\logs"
+)
+
 // EnsureDir checks if a directory path exists; if it doesn't, it creates it with secure permissions (0755).
 func EnsureDir(dirPath string) (bool, error) {
 	if dirPath == "" {
 		return false, fmt.Errorf("directory path cannot be empty")
 	}
 
-	// Check if directory already exists
 	info, err := os.Stat(dirPath)
 	if err == nil {
 		if info.IsDir() {
@@ -22,7 +29,6 @@ func EnsureDir(dirPath string) (bool, error) {
 		return false, fmt.Errorf("path exists but is a file, not a directory: %s", dirPath)
 	}
 
-	// Create directory and any missing parent directories
 	if os.IsNotExist(err) {
 		err = os.MkdirAll(dirPath, 0755)
 		if err != nil {
@@ -34,6 +40,17 @@ func EnsureDir(dirPath string) (bool, error) {
 	return false, err
 }
 
+// InitSubsystems provisions the entire application path ecosystem in one go
+func InitSubsystems() error {
+	paths := []string{BaseDir, BaseData, BaseConfig, BaseLogs}
+	for _, p := range paths {
+		if _, err := EnsureDir(p); err != nil {
+			return fmt.Errorf("failed bootstrapping workspace directory %s: %w", p, err)
+		}
+	}
+	return nil
+}
+
 // WriteFile writes string or byte data to a file safely. It automatically creates the parent folder if missing.
 func WriteFile(filePath string, data []byte) error {
 	dir := filepath.Dir(filePath)
@@ -41,7 +58,6 @@ func WriteFile(filePath string, data []byte) error {
 		return err
 	}
 
-	// Write file atomically (0644 gives read/write permissions to owner, read to others)
 	err := os.WriteFile(filePath, data, 0644)
 	if err != nil {
 		return fmt.Errorf("failed to write file content: %w", err)
@@ -62,10 +78,10 @@ func ReadFile(filePath string) ([]byte, error) {
 	return data, nil
 }
 
-// DeletePath removes a target file or an entire directory (along with all its contents).
+// DeletePath removes a target file or an entire directory recursively.
 func DeletePath(path string) error {
 	if !Exists(path) {
-		return nil // Already gone
+		return nil // Already absent
 	}
 
 	err := os.RemoveAll(path)
@@ -81,16 +97,6 @@ func Exists(path string) bool {
 	return !os.IsNotExist(err)
 }
 
-// GetUserConfigDir returns the standard application profile directory path for FehmiAgent (%APPDATA%\FehmiAgent on Windows).
-func GetAgentDataDir() string {
-	baseDir, err := os.UserConfigDir()
-	if err != nil {
-		// Fallback to local execution directory if OS environment is constrained
-		baseDir = "."
-	}
-	return filepath.Join(baseDir, "FehmiAgent")
-}
-
 // CopyFile duplicates a file from a source location to a destination location safely.
 func CopyFile(src, dst string) error {
 	sourceFile, err := os.Open(src)
@@ -99,7 +105,6 @@ func CopyFile(src, dst string) error {
 	}
 	defer sourceFile.Close()
 
-	// Ensure destination path folder is provisioned
 	destDir := filepath.Dir(dst)
 	if _, err := EnsureDir(destDir); err != nil {
 		return err
@@ -113,7 +118,7 @@ func CopyFile(src, dst string) error {
 
 	_, err = io.Copy(destFile, sourceFile)
 	if err != nil {
-		return fmt.Errorf("failed during streaming file copy block copy: %w", err)
+		return fmt.Errorf("failed streaming file transfer: %w", err)
 	}
 	return destFile.Sync()
 }

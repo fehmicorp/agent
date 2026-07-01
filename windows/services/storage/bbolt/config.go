@@ -2,9 +2,9 @@ package bbolt
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 
+	"github.com/fehmicorp/agent/windows/storage/fs"
 	goBolt "go.etcd.io/bbolt"
 )
 
@@ -23,11 +23,10 @@ func NewBoltStore(dbName string, bucketName string) *BoltStore {
 
 // Init ensures directories exist, mounts the database file, and pre-provisions the targeted bucket setup
 func (b *BoltStore) Init(dir string) (bool, error) {
-	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return false, fmt.Errorf("failed to provision database directory path: %w", err)
+	_, err := fs.EnsureDir(dir)
+	if err != nil {
+		return false, fmt.Errorf("failed to provision database directory path via fs module: %w", err)
 	}
-
-	var err error
 	b.db, err = goBolt.Open(filepath.Join(dir, b.dbName), 0600, nil)
 	if err != nil {
 		return false, err

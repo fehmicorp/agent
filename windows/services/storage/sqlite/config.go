@@ -3,10 +3,10 @@ package sqlite
 import (
 	"database/sql"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/fehmicorp/agent/windows/storage/fs"
 	_ "modernc.org/sqlite" // Pure Go SQLite driver (No CGO required)
 )
 
@@ -32,14 +32,11 @@ func NewSQLiteStore(dbName string, tableName string) *SQLiteStore {
 
 // Init ensures directories exist, opens the SQLite database file, and configures the schema dynamically
 func (s *SQLiteStore) Init(dir string, columns []TblQuery) (bool, error) {
-	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return false, fmt.Errorf("failed to provision database folder path: %w", err)
+	_, err := fs.EnsureDir(dir)
+	if err != nil {
+		return false, fmt.Errorf("fs provision error: %w", err)
 	}
-
 	dbPath := filepath.Join(dir, s.dbName)
-	var err error
-
-	// Open connection to SQLite database file
 	s.db, err = sql.Open("sqlite", dbPath)
 	if err != nil {
 		return false, fmt.Errorf("failed to open sqlite database file: %w", err)
