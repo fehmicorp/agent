@@ -4,7 +4,6 @@ import (
 	"embed"
 	"log"
 
-	"github.com/fehmicorp/agent/windows/config/appinfo"
 	"github.com/fehmicorp/agent/windows/debug/logger"
 	"github.com/fehmicorp/agent/windows/utils/runas"
 	"github.com/wailsapp/wails/v2"
@@ -21,11 +20,13 @@ const (
 	AppCompany = "Fehmi Corporation"
 )
 
-var (
-	Version   = appinfo.Version
-	Build     = appinfo.Build
-	BuildType = appinfo.BuildType
-)
+// var (
+// 	Version   = appinfo.Version
+// 	Build     = appinfo.Build
+// 	BuildType = appinfo.BuildType
+// )
+
+var signatureSalt = "fehmi-endpoint-windows-agent"
 
 func main() {
 	logger.InitLogger("", "")

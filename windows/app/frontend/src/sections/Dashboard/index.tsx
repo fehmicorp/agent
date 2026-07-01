@@ -3,8 +3,8 @@ import { cardMain, anim_1, spanText } from "../../utils/colour";
 import { Card, Info, Status } from "../../utils/func";
 
 // Import Wails runtime binds generated during standard go compilation routines
-import { DashboardUpdate } from "../../../wailsjs/go/main/App";
 import { EventsOn, EventsOff } from "../../../wailsjs/runtime/runtime";
+import { useAppInfoStore, useDeviceInfoStore, useSecurityInfoStore } from "../../store/dashboard";
 
 interface MetricCard {
   title: string;
@@ -60,7 +60,6 @@ function MetricCardSkeleton() {
 }
 
 function InfoSkeleton() {
-
     return (
         <>
             {Array.from({ length: 5 }).map((_, i) => (
@@ -101,53 +100,21 @@ export default function Dashboard(): React.JSX.Element {
     { title: "Network", value: 0 },
   ]);
 
-  const [deviceInfo, setDeviceInfo] = useState<InfoItem[]>([]);
-  const [securityStatus, setSecurityStatus] = useState<StatusItem[]>([]);
   const [statsLoading, setStatsLoading] = useState(true);
-  const [deviceLoading, setDeviceLoading] = useState(true);
-  const [securityLoading, setSecurityLoading] = useState(true);
-
+  const { deviceInfo, deviceLoading } = useDeviceInfoStore();
+  const { securityStatus, securityLoading } = useSecurityInfoStore();
   useEffect(() => {
-    DashboardUpdate()
-      .then((info) => {
-
-        setDeviceInfo([
-          { title: "Hostname", value: info.hostname },
-          { title: "Domain", value: info.domain },
-          { title: "User", value: info.user },
-          { title: "OS", value: info.os },
-          { title: "Agent Version", value: info.agentVersion },
-        ]);
-
-        setDeviceLoading(false);
-
-        setSecurityStatus([
-          { title: "Windows Defender", value: info.windowsDefender },
-          { title: "Firewall", value: info.firewall },
-          { title: "TPM", value: info.tpm },
-          { title: "BitLocker", value: info.bitLocker },
-        ]);
-
-        setSecurityLoading(false);
-
-      })
-      .catch(console.error);
-
     const handleMetricsUpdate = (data: any) => {
-
         const cleanInt = (val: string) =>
             parseInt(val.replace("%",""),10) || 0;
-
         setStats([
             { title:"CPU Usage", value:cleanInt(data.cpu)},
             { title:"RAM Usage", value:cleanInt(data.ram)},
             { title:"Disk Usage", value:cleanInt(data.disk)},
             { title:"Network", value:data.network},
         ]);
-
         setStatsLoading(false);
     }
-
     EventsOn("metrics_update", handleMetricsUpdate);
     return () => EventsOff("metrics_update");
   }, []);
@@ -170,7 +137,7 @@ export default function Dashboard(): React.JSX.Element {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className={`${cardMain} rounded-xl p-5 border dark:border-stone-500/20 border-stone-500/20`}>
+        <div className={`${cardMain} h-100 rounded-xl p-5 border dark:border-stone-500/20 border-stone-500/20`}>
           <h2 className={spanText}>Device Information</h2>
           {deviceLoading
               ? <InfoSkeleton/>
@@ -183,7 +150,6 @@ export default function Dashboard(): React.JSX.Element {
               ))
           }
         </div>
-        
         <div className={`${cardMain} rounded-xl p-5 border dark:border-stone-500/20 border-stone-500/20`}>
           <h2 className={spanText}>Security Status</h2>
           {securityLoading

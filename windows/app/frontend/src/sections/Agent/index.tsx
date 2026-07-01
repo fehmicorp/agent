@@ -3,6 +3,7 @@ import { cardMain, spanText, mutedText } from "../../utils/colour";
 import App from "../data";
 import { dash, upgradeAgent } from "../data/dummy";
 import { AdminLayout } from "./admin";
+import { useAppInfoStore } from "../../store/dashboard";
 
 const adminSetting = [
   { id: 1, title: "Network Firewall", tag: "firewall", value: true },
@@ -107,6 +108,8 @@ export default function Agent(): React.JSX.Element {
     }));
   };
 
+  const appinfo = useAppInfoStore((state) => state.appInfo);
+
   // Determine if the current version matches the latest upgrade target profile
   const isLatestVersion = currentVersion.version === upgradeAgent.version;
 
@@ -152,9 +155,9 @@ export default function Agent(): React.JSX.Element {
           </div>          
           <div className="grid grid-cols-[50%_25%_25%] items-end text-xs font-mono w-full my-1">
             <div className="flex flex-col justify-end min-w-0 pr-4">
-              <h2 className={`text-stone-900 dark:text-stone-100 text-xl font-bold truncate`}>{App.name}</h2>
+              <h2 className={`text-stone-900 dark:text-stone-100 text-xl font-bold truncate`}>{appinfo.name}</h2>
               <p className={`${mutedText} text-xs mt-1 truncate`}>
-                ID: {dash.agentId}
+                ID: {appinfo.deviceToken}
               </p>
             </div>
             <div className="min-w-0">

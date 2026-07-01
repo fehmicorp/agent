@@ -16,6 +16,7 @@ import Navbar from "./component/Navbar";
 import Header from "./component/Header";
 import Notification from "./component/notification";
 import Queue, { QueueJob } from "./component/queue";
+import { useAppInfoStore, useDeviceInfoStore, useSecurityInfoStore } from "./store/dashboard";
 
 const INITIAL_NOTIFICATIONS = [
   { id: 1, text: "Security baseline audit validation trace successfully completed.", time: "2 mins ago" },
@@ -38,8 +39,13 @@ export default function App() {
 
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
   const [jobs, setJobs] = useState<QueueJob[]>(INITIAL_JOBS);
-
+  const fetchDashboardData = useDeviceInfoStore((state) => state.fetchData);
+  const fetchSecurityData = useSecurityInfoStore((state) => state.fetchSecurityData);
+  const fetchAppData = useAppInfoStore((state) => state.fetchData);
   useEffect(() => {
+    fetchDashboardData();
+    fetchSecurityData();
+    fetchAppData();
     const handler = () => {
       setRoute(getCurrentRoute());
     };
@@ -50,7 +56,7 @@ export default function App() {
     return () => {
       window.removeEventListener("hashchange", handler);
     };
-  }, []);
+  }, [fetchDashboardData, fetchSecurityData, fetchAppData]);
 
   const Page = routes[route];
   const runningJobsCount = jobs.filter((j) => j.status === "running").length;

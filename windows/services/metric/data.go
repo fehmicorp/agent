@@ -24,7 +24,6 @@ type DeviceInfo struct {
 	Domain          string `json:"domain"`
 	User            string `json:"user"`
 	OS              string `json:"os"`
-	AgentVersion    string `json:"agentVersion"`
 	WindowsDefender bool   `json:"windowsDefender"`
 	Firewall        bool   `json:"firewall"`
 	TPM             bool   `json:"tpm"`
@@ -108,7 +107,6 @@ func GetSystemDeviceInfo() (DeviceInfo, error) {
 		Domain:          domain,
 		User:            username,
 		OS:              osDisplay,
-		AgentVersion:    "",
 		WindowsDefender: defStatus,
 		Firewall:        fwStatus,
 		TPM:             tpmStatus,

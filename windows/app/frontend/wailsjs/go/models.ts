@@ -1,5 +1,37 @@
 export namespace main {
 	
+	export class AppInfo {
+	    id: string;
+	    deviceToken: string;
+	    name: string;
+	    version: string;
+	    build: string;
+	    tag: string;
+	    buildType: string;
+	    company: string;
+	    website: string;
+	    endpoint: string;
+	    description: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new AppInfo(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.deviceToken = source["deviceToken"];
+	        this.name = source["name"];
+	        this.version = source["version"];
+	        this.build = source["build"];
+	        this.tag = source["tag"];
+	        this.buildType = source["buildType"];
+	        this.company = source["company"];
+	        this.website = source["website"];
+	        this.endpoint = source["endpoint"];
+	        this.description = source["description"];
+	    }
+	}
 	export class CpuFullDetails {
 	    model: string;
 	    physicalCores: number;
@@ -26,6 +58,24 @@ export namespace main {
 	        this.liveUsage = source["liveUsage"];
 	    }
 	}
+	export class DeviceInfo {
+	    hostname: string;
+	    domain: string;
+	    user: string;
+	    os: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new DeviceInfo(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.hostname = source["hostname"];
+	        this.domain = source["domain"];
+	        this.user = source["user"];
+	        this.os = source["os"];
+	    }
+	}
 	export class MemoryDetails {
 	    used: string;
 	    capacity: string;
@@ -46,33 +96,18 @@ export namespace main {
 	        this.free = source["free"];
 	    }
 	}
-
-}
-
-export namespace metric {
-	
-	export class DeviceInfo {
-	    hostname: string;
-	    domain: string;
-	    user: string;
-	    os: string;
-	    agentVersion: string;
+	export class SecurityInfo {
 	    windowsDefender: boolean;
 	    firewall: boolean;
 	    tpm: boolean;
 	    bitLocker: boolean;
 	
 	    static createFrom(source: any = {}) {
-	        return new DeviceInfo(source);
+	        return new SecurityInfo(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.hostname = source["hostname"];
-	        this.domain = source["domain"];
-	        this.user = source["user"];
-	        this.os = source["os"];
-	        this.agentVersion = source["agentVersion"];
 	        this.windowsDefender = source["windowsDefender"];
 	        this.firewall = source["firewall"];
 	        this.tpm = source["tpm"];

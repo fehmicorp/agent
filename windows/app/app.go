@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-
-	"github.com/fehmicorp/agent/windows/debug/logger"
 )
 
 type App struct {
@@ -16,6 +14,6 @@ func NewApp() *App {
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	logger.Logger.Log("INFO", "Running with high integrity context. Spinning up metrics tickers...")
+	_ = a.InitializeFirstTimeSetup()
 	go a.StartMetric(1000)
 }
