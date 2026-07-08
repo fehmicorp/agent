@@ -1,8 +1,6 @@
 package app
 
-import "githum.com/fehmicorp/v1/cmd/internal"
-
-func main() {
+func Run() {
 	println("Build Type: ", internal.Current.BuildType)
 	println("Build Date: ", internal.Current.Build)
 	println("Company: ", internal.Current.Company)
