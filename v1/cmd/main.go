@@ -1,8 +1,7 @@
 package main
 
 import (
-	"githum.com/fehmicorp/v1/app"
-	"githum.com/fehmicorp/v1/cmd/internal"
+	"github.com/fehmicorp/v1/cmd/internal"
 )
 
 func main() {
@@ -11,5 +10,5 @@ func main() {
 	println("Company: ", internal.Current.Company)
 	println("Version: ", internal.Current.Version)
 
-	go app.Run()
+	// go app.Run()
 }
