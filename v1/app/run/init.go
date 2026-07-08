@@ -8,14 +8,15 @@ import (
 )
 
 func Run(title string, w int, h int) error {
+	println("Title: ", title)
 	a := NewApp()
-	icon, _ := assets.Read("assets/favicon.ico")
+
 	return wails.Run(&options.App{
 		Title:  title,
 		Width:  w,
 		Height: h,
 		AssetServer: &assetserver.Options{
-			Assets: icon,
+			Assets: assets.FS,
 		},
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
 		OnStartup:        a.startup,

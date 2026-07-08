@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/fehmicorp/agent/v1/app"
+	runner "github.com/fehmicorp/agent/v1/app/run"
+	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 )
 
 func main() {
@@ -10,5 +11,5 @@ func main() {
 	// println("Company: ", appinfo.Current.Company)
 	// println("Version: ", appinfo.Current.Version)
 
-	go app.Version()
+	go runner.Run(appinfo.Current.Name, 500, 500)
 }
