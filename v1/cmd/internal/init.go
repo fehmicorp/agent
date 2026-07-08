@@ -10,6 +10,15 @@ const (
 	Release     Mode = "stable"
 )
 
+// These values are overridden by -ldflags.
+var (
+	Version   = "0.0.1"
+	BuildType = "development"
+	BuildDate = ""
+	Commit    = "local"
+	Branch    = "main"
+)
+
 type Build struct {
 	Name      string
 	Company   string
@@ -23,11 +32,6 @@ type Build struct {
 	Admin     bool
 	Profiling bool
 }
-
-var (
-	Version   = "1.0.0"
-	BuildType = "development"
-)
 
 func CurrentDate() string {
 	return time.Now().Format("2006-01-02")
@@ -44,4 +48,23 @@ var Current = Build{
 	DevTools: true,
 	Console:  true,
 	Admin:    true,
+}
+
+func init() {
+	if BuildDate == "" {
+		BuildDate = CurrentDate()
+	}
+
+	Current = Build{
+		Name:      "Fehmi Endpoint Agent",
+		Company:   "Fehmi Corporation",
+		Version:   Version,
+		Build:     BuildDate,
+		BuildType: Mode(BuildType),
+
+		Debug:    BuildType == string(Development),
+		DevTools: BuildType == string(Development),
+		Console:  BuildType == string(Development),
+		Admin:    true,
+	}
 }
