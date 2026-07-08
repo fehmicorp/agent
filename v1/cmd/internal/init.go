@@ -1,6 +1,10 @@
 package internal
 
-import "time"
+import (
+	"time"
+
+	"github.com/fehmicorp/agent/v1/cmd/internal/version"
+)
 
 type Mode string
 
@@ -8,15 +12,6 @@ const (
 	Development Mode = "development"
 	Beta        Mode = "beta"
 	Release     Mode = "stable"
-)
-
-// These values are overridden by -ldflags.
-var (
-	Version   = "0.0.1"
-	BuildType = "development"
-	BuildDate = ""
-	Commit    = "local"
-	Branch    = "main"
 )
 
 type Build struct {
@@ -31,40 +26,38 @@ type Build struct {
 	Console   bool
 	Admin     bool
 	Profiling bool
+
+	Commit string
+	Branch string
 }
 
 func CurrentDate() string {
 	return time.Now().Format("2006-01-02")
 }
 
-var Current = Build{
-	Name:      "Fehmi Endpoint Agent",
-	Company:   "Fehmi Corporation",
-	Version:   Version,
-	Build:     CurrentDate(),
-	BuildType: Mode(BuildType),
-
-	Debug:    true,
-	DevTools: true,
-	Console:  true,
-	Admin:    true,
-}
+var Current Build
 
 func init() {
-	if BuildDate == "" {
-		BuildDate = CurrentDate()
+
+	buildDate := version.BuildDate
+	if buildDate == "" {
+		buildDate = CurrentDate()
 	}
 
 	Current = Build{
 		Name:      "Fehmi Endpoint Agent",
 		Company:   "Fehmi Corporation",
-		Version:   Version,
-		Build:     BuildDate,
-		BuildType: Mode(BuildType),
+		Version:   version.Version,
+		Build:     buildDate,
+		BuildType: Mode(version.BuildType),
 
-		Debug:    BuildType == string(Development),
-		DevTools: BuildType == string(Development),
-		Console:  BuildType == string(Development),
-		Admin:    true,
+		Debug:     version.BuildType == string(Development),
+		DevTools:  version.BuildType == string(Development),
+		Console:   version.BuildType == string(Development),
+		Admin:     true,
+		Profiling: version.BuildType == string(Development),
+
+		Commit: version.Commit,
+		Branch: version.Branch,
 	}
 }
