@@ -1,13 +1,7 @@
 package version
 
-type Info struct {
-	Version   string
-	BuildType string
-	BuildDate string
-}
-
-var Current = &Info{
-	Version:   "0.0.1",
-	BuildType: "development",
-	BuildDate: "",
-}
+var (
+	Version   = "0.0.1"
+	BuildType = "development"
+	BuildDate = ""
+)

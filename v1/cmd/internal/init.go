@@ -3,7 +3,7 @@ package internal
 import (
 	"time"
 
-	"github.com/fehmicorp/agent/v1/cmd/internal/version"
+	v "github.com/fehmicorp/agent/v1/cmd/internal/version"
 )
 
 type Mode string
@@ -36,22 +36,45 @@ var Current Build
 
 func init() {
 
-	buildDate := version.BuildDate
-	if buildDate == "" {
-		buildDate = CurrentDate()
+	if v.BuildDate == "" {
+		v.BuildDate = CurrentDate()
 	}
 
 	Current = Build{
 		Name:      "Fehmi Endpoint Agent",
 		Company:   "Fehmi Corporation",
-		Version:   version.Version,
-		Build:     buildDate,
-		BuildType: Mode(version.BuildType),
+		Version:   v.Version,
+		Build:     v.BuildDate,
+		BuildType: Mode(v.BuildType),
 
-		Debug:     version.BuildType == string(Development),
-		DevTools:  version.BuildType == string(Development),
-		Console:   version.BuildType == string(Development),
+		Debug:     false,
+		DevTools:  false,
+		Console:   false,
 		Admin:     true,
-		Profiling: version.BuildType == string(Development),
+		Profiling: false,
+	}
+
+	switch Current.BuildType {
+
+	case Development:
+		Current.Debug = true
+		Current.DevTools = true
+		Current.Console = true
+		Current.Admin = false
+		Current.Profiling = true
+
+	case Beta:
+		Current.Debug = false
+		Current.DevTools = false
+		Current.Console = true
+		Current.Admin = true
+		Current.Profiling = false
+
+	case Release:
+		Current.Debug = false
+		Current.DevTools = false
+		Current.Console = false
+		Current.Admin = true
+		Current.Profiling = false
 	}
 }
