@@ -3,7 +3,7 @@ module github.com/fehmicorp/agent/v1/app
 go 1.26.4
 
 require (
-	github.com/fehmicorp/agent/v1/cmd v0.0.0-20260708120026-c7de7fec1d5c
+	github.com/fehmicorp/agent/v1/cmd v0.0.0-20260708123255-8972b671f1af
 	github.com/wailsapp/wails/v2 v2.13.0
 )
 
