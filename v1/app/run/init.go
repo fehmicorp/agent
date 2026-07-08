@@ -1,20 +1,15 @@
 package runner
 
 import (
-	"embed"
-
+	"github.com/fehmicorp/agent/v1/res/assets"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-//go:embed all:frontend/dist
-var assets embed.FS
-
 func Run() error {
-
 	a := NewApp()
-
+	icon, _ := assets.Read("assets/favicon.ico")
 	return wails.Run(&options.App{
 
 		Title: "Fehmi Endpoint Agent",
@@ -23,7 +18,7 @@ func Run() error {
 		Height: 768,
 
 		AssetServer: &assetserver.Options{
-			Assets: assets,
+			Assets: icon,
 		},
 
 		OnStartup: a.startup,
