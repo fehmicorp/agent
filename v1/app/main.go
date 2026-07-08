@@ -1,18 +1,14 @@
 package main
 
 import (
-	"embed"
-
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-//go:embed all:frontend/dist
-var assets embed.FS
-
 func Version() {
+	println("App Name: ", appinfo.Current.Name)
 	println("Version: ", appinfo.Current.Version)
 }
 
@@ -20,6 +16,8 @@ func main() {
 	// Create an instance of the app structure
 	app := NewApp()
 	Version()
+
+	icon, _ := assets.Read("assets/favicon.ico")
 
 	// Create application with options
 	err := wails.Run(&options.App{
