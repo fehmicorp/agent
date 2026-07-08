@@ -1,4 +1,4 @@
-package flags
+package internal
 
 type Mode string
 
