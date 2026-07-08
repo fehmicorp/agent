@@ -7,22 +7,18 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-func Run() error {
+func Run(title string, w int, h int) error {
 	a := NewApp()
 	icon, _ := assets.Read("assets/favicon.ico")
 	return wails.Run(&options.App{
-
-		Title: "Fehmi Endpoint Agent",
-
-		Width:  1024,
-		Height: 768,
-
+		Title:  title,
+		Width:  w,
+		Height: h,
 		AssetServer: &assetserver.Options{
 			Assets: icon,
 		},
-
-		OnStartup: a.startup,
-
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        a.startup,
 		Bind: []interface{}{
 			a,
 		},
