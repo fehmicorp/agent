@@ -1,6 +1,8 @@
 package appinfo
 
 import (
+	"os"
+	"strings"
 	"time"
 
 	v "github.com/fehmicorp/agent/v1/cmd/version"
@@ -36,6 +38,22 @@ var Current Build
 
 func init() {
 
+	// Override version from environment
+	if value := os.Getenv("APP_VERSION"); value != "" {
+		v.Version = value
+	}
+
+	// Override build type from environment
+	if value := os.Getenv("APP_BUILD_TYPE"); value != "" {
+		v.BuildType = strings.ToLower(value)
+	}
+
+	// Override build date from environment
+	if value := os.Getenv("APP_BUILD_DATE"); value != "" {
+		v.BuildDate = value
+	}
+
+	// Default build date
 	if v.BuildDate == "" {
 		v.BuildDate = CurrentDate()
 	}
@@ -64,17 +82,19 @@ func init() {
 		Current.Profiling = true
 
 	case Beta:
-		Current.Debug = false
-		Current.DevTools = false
 		Current.Console = true
 		Current.Admin = true
-		Current.Profiling = false
 
 	case Release:
-		Current.Debug = false
-		Current.DevTools = false
-		Current.Console = false
 		Current.Admin = true
-		Current.Profiling = false
+
+	default:
+		// Fallback to development
+		Current.BuildType = Development
+		Current.Debug = true
+		Current.DevTools = true
+		Current.Console = true
+		Current.Admin = false
+		Current.Profiling = true
 	}
 }
