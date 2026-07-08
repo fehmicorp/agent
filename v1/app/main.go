@@ -5,6 +5,11 @@ import (
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 )
 
+// func main() {
+// 	go runner.Run(appinfo.Current.Name, 500, 500)
+// }
+
 func main() {
-	go runner.Run(appinfo.Current.Name, 500, 500)
+	bootstrap.Init()
+	runner.Run(appinfo.Current.Name, 500, 500)
 }

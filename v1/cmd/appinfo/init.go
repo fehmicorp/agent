@@ -1,8 +1,6 @@
 package appinfo
 
 import (
-	"os"
-	"strings"
 	"time"
 
 	v "github.com/fehmicorp/agent/v1/cmd/version"
@@ -36,35 +34,19 @@ func CurrentDate() string {
 
 var Current Build
 
-func init() {
+func Reload() {
 
-	// Override version from environment
-	if value := os.Getenv("APP_VERSION"); value != "" {
-		v.Version = value
-	}
-
-	// Override build type from environment
-	if value := os.Getenv("APP_BUILD_TYPE"); value != "" {
-		v.BuildType = strings.ToLower(value)
-	}
-
-	// Override build date from environment
-	if value := os.Getenv("APP_BUILD_DATE"); value != "" {
-		v.BuildDate = value
-	}
-
-	// Default build date
-	if v.BuildDate == "" {
-		v.BuildDate = CurrentDate()
+	buildDate := v.BuildDate
+	if buildDate == "" {
+		buildDate = CurrentDate()
 	}
 
 	Current = Build{
 		Name:      "Fehmi Endpoint Agent",
 		Company:   "Fehmi Corporation",
 		Version:   v.Version,
-		Build:     v.BuildDate,
+		Build:     buildDate,
 		BuildType: Mode(v.BuildType),
-
 		Debug:     false,
 		DevTools:  false,
 		Console:   false,
@@ -97,4 +79,7 @@ func init() {
 		Current.Admin = false
 		Current.Profiling = true
 	}
+}
+func init() {
+	Reload()
 }
