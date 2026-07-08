@@ -1,11 +1,13 @@
 package internal
 
+import "time"
+
 type Mode string
 
 const (
 	Development Mode = "development"
-	Production  Mode = "production"
-	Release     Mode = "release"
+	Beta        Mode = "beta"
+	Release     Mode = "stable"
 )
 
 type Build struct {
@@ -22,12 +24,21 @@ type Build struct {
 	Profiling bool
 }
 
+var (
+	Version   = "1.0.0"
+	BuildType = "development"
+)
+
+func CurrentDate() string {
+	return time.Now().Format("2006-01-02")
+}
+
 var Current = Build{
 	Name:      "Fehmi Endpoint Agent",
 	Company:   "Fehmi Corporation",
-	Version:   "1.0.0",
-	Build:     "2026.07.08",
-	BuildType: Development,
+	Version:   Version,
+	Build:     CurrentDate(),
+	BuildType: Mode(BuildType),
 
 	Debug:    true,
 	DevTools: true,

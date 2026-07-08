@@ -1,8 +1,8 @@
 package internal
 
-func ProductionConfig() {
+func BetaConfig() {
 
-	Current.BuildType = Production
+	Current.BuildType = Beta
 
 	Current.Debug = false
 	Current.Console = false
