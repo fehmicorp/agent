@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fehmicorp/v1/cmd/internal"
+	"github.com/fehmicorp/agent/v1/cmd/internal"
 )
 
 func main() {
