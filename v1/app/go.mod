@@ -1,4 +1,4 @@
-module github.com/fehmicorp/agent/v1/win
+module github.com/fehmicorp/agent/v1/app
 
 go 1.23.0
 
