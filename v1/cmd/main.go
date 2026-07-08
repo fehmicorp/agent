@@ -1,9 +1,9 @@
 package main
 
-import version "githum.com/fehmicorp/v1/cmd/internal"
+import internal "githum.com/fehmicorp/v1/cmd/flags"
 
 var (
-	Version     = version.Version
+	Version     = internal.Current.Version
 	DisplayName = "Fehmi Endpoint Agent"
 	PackageName = "in.fehemicorp.agent"
 	Author      = "Fehmi Corporation"
