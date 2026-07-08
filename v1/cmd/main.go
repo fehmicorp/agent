@@ -1,6 +1,6 @@
 package main
 
-import internal "githum.com/fehmicorp/v1/cmd/flags"
+import "githum.com/fehmicorp/v1/cmd/internal"
 
 var (
 	Version     = internal.Current.Version
