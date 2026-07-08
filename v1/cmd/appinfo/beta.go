@@ -1,8 +1,8 @@
-package internal
+package appinfo
 
-func ReleaseConfig() {
+func BetaConfig() {
 
-	Current.BuildType = Release
+	Current.BuildType = Beta
 
 	Current.Debug = false
 	Current.Console = false

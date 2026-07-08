@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 
+	"github.com/fehmicorp/agent/v1/cmd/internal"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -11,9 +12,14 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+func Version() {
+	println("Version: ", internal.Current.Version)
+}
+
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
+	Version()
 
 	// Create application with options
 	err := wails.Run(&options.App{
