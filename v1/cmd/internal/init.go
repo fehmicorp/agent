@@ -26,9 +26,6 @@ type Build struct {
 	Console   bool
 	Admin     bool
 	Profiling bool
-
-	Commit string
-	Branch string
 }
 
 func CurrentDate() string {
@@ -56,8 +53,5 @@ func init() {
 		Console:   version.BuildType == string(Development),
 		Admin:     true,
 		Profiling: version.BuildType == string(Development),
-
-		Commit: version.Commit,
-		Branch: version.Branch,
 	}
 }
