@@ -1,11 +1,10 @@
-package main
+package app
 
-import (
-	"log"
-)
+import "githum.com/fehmicorp/v1/cmd/internal"
 
 func main() {
-	if err := Run(); err != nil {
-		log.Fatal(err)
-	}
+	println("Build Type: ", internal.Current.BuildType)
+	println("Build Date: ", internal.Current.Build)
+	println("Company: ", internal.Current.Company)
+	println("Version: ", internal.Current.Version)
 }
