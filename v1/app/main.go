@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 
-	"github.com/fehmicorp/agent/v1/cmd/internal"
+	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -13,7 +13,7 @@ import (
 var assets embed.FS
 
 func Version() {
-	println("Version: ", internal.Current.Version)
+	println("Version: ", appinfo.Current.Version)
 }
 
 func main() {

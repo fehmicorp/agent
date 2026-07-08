@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/fehmicorp/agent/v1/app"
+	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 )
 
 func main() {
-	// println("Build Type: ", internal.Current.BuildType)
-	// println("Build Date: ", internal.Current.Build)
-	// println("Company: ", internal.Current.Company)
-	// println("Version: ", internal.Current.Version)
+	println("Build Type: ", appinfo.Current.BuildType)
+	println("Build Date: ", appinfo.Current.Build)
+	println("Company: ", appinfo.Current.Company)
+	println("Version: ", appinfo.Current.Version)
 
-	go app.Run()
+	// go app.Run()
 }

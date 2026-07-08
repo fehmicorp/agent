@@ -3,7 +3,7 @@ package appinfo
 import (
 	"time"
 
-	v "github.com/fehmicorp/agent/v1/cmd/appinfo/version"
+	v "github.com/fehmicorp/agent/v1/cmd/version"
 )
 
 type Mode string
