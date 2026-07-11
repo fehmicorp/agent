@@ -33,13 +33,6 @@ type Menu struct {
 	Enabled   bool   `json:"enabled,omitempty"`
 }
 
-type TrayResponse struct {
-	Status string `json:"status"`
-	Data   struct {
-		Tray []Menu `json:"tray"`
-	} `json:"data"`
-}
-
 func LoadTrayConfig() {
 	client := &http.Client{
 		Timeout: 10 * time.Second,
