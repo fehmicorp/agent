@@ -1,38 +1,58 @@
 package inventory
 
 import (
-	"os"
-	"path/filepath"
+	"fmt"
+	"runtime"
 	"strings"
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
-	"github.com/google/uuid"
 )
 
 var deviceID string
 
-func DeviceID() (string, error) {
+func DeviceID(inv *InventoryInfo, product string) (string, error) {
+
 	if deviceID != "" {
 		return deviceID, nil
 	}
-	path := filepath.Join(
-		appinfo.Dir.Config,
-		"device.id",
+
+	platform := "unk"
+
+	switch runtime.GOOS {
+	case "windows":
+		platform = "win"
+	case "linux":
+		platform = "linux"
+	case "darwin":
+		platform = "mac"
+	}
+
+	version := "v1"
+
+	if appinfo.Current.Version != "" {
+		parts := strings.Split(appinfo.Current.Version, ".")
+		if len(parts) > 0 {
+			version = "v" + parts[0]
+		}
+	}
+
+	mac := strings.ReplaceAll(inv.System.PrimaryMAC, ":", "")
+	mac = strings.ReplaceAll(mac, "-", "")
+
+	uuid := strings.ReplaceAll(inv.System.UUID, "-", "")
+
+	if len(uuid) >= 12 {
+		uuid = uuid[len(uuid)-12:]
+	}
+
+	deviceID = fmt.Sprintf(
+		"%s%s-%s-%s-%s",
+		product,
+		version,
+		platform,
+		mac,
+		strings.ToLower(uuid),
 	)
-	if b, err := os.ReadFile(path); err == nil {
-
-		deviceID = strings.TrimSpace(string(b))
-
-		return deviceID, nil
-	}
-	id := uuid.NewString()
-	if err := os.MkdirAll(appinfo.Dir.Config, 0755); err != nil {
-		return "", err
-	}
-	if err := os.WriteFile(path, []byte(id), 0644); err != nil {
-		return "", err
-	}
-	deviceID = id
 
 	return deviceID, nil
 }

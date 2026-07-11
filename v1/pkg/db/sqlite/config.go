@@ -201,3 +201,21 @@ func (s *SQLiteStore) Close() error {
 	}
 	return nil
 }
+
+func (s *SQLiteStore) Query(query string, args ...any) (*sql.Rows, error) {
+	if s.db == nil {
+		return nil, fmt.Errorf("sqlite database instance pool is not initialized")
+	}
+	return s.db.Query(query, args...)
+}
+
+func (s *SQLiteStore) QueryRow(query string, args ...any) *sql.Row {
+	return s.db.QueryRow(query, args...)
+}
+
+func (s *SQLiteStore) Exec(query string, args ...any) (sql.Result, error) {
+	if s.db == nil {
+		return nil, fmt.Errorf("sqlite database instance pool is not initialized")
+	}
+	return s.db.Exec(query, args...)
+}

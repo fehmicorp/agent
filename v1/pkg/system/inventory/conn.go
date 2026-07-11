@@ -83,8 +83,7 @@ func GetPending(limit int) ([]QueueItem, error) {
 	if limit <= 0 {
 		limit = 10
 	}
-
-	rows, err := store.DB().Query(`
+	rows, err := store.Query(`
 		SELECT
 			id,
 			device_id,
@@ -93,10 +92,10 @@ func GetPending(limit int) ([]QueueItem, error) {
 			status,
 			payload
 		FROM inventory
-		WHERE status='pending'
+		WHERE status = ?
 		ORDER BY id ASC
 		LIMIT ?;
-	`, limit)
+	`, "pending", limit)
 
 	if err != nil {
 		return nil, err
