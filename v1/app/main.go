@@ -10,6 +10,5 @@ import (
 // }
 
 func main() {
-	bootstrap.Init()
 	runner.Run(appinfo.Current.Name, 500, 500)
 }
