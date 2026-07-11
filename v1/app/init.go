@@ -1,4 +1,4 @@
-package runner
+package main
 
 import (
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"

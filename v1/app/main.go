@@ -1,7 +1,7 @@
 package main
 
 import (
-	runner "github.com/fehmicorp/agent/v1/app/run"
+	// runner "github.com/fehmicorp/agent/v1/app/run"
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 )
 
@@ -10,5 +10,5 @@ import (
 // }
 
 func main() {
-	runner.Run(appinfo.Current.Name, 500, 500)
+	Run(appinfo.Current.Name, 500, 500)
 }
