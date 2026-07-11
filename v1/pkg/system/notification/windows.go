@@ -1,7 +1,7 @@
 package notification
 
 import (
-	"path/filepath"
+	"os"
 
 	"github.com/go-toast/toast"
 )
@@ -27,10 +27,9 @@ func (w *windowsProvider) Push(opt *NotificationOptions) error {
 		Message: opt.Message,
 	}
 
-	if opt.IconPath != "" {
-		if abs, err := filepath.Abs(opt.IconPath); err == nil {
-			n.Icon = abs
-		}
+	if path, err := tempIcon(opt.IconPath); err == nil {
+		defer os.Remove(path)
+		n.Icon = path
 	}
 
 	return n.Push()

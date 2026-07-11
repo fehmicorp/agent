@@ -72,18 +72,17 @@ func handleTrayClick(id int) {
 			logger.Error("Unable to launch app: ", err)
 		}
 
+	case 1002:
+		notification.Push(&notification.NotificationOptions{
+			AppID:    "Fehmi Endpoint Agent",
+			Title:    "Inventory Complete",
+			Message:  "245 assets synchronized successfully.",
+			IconPath: "fav.ico",
+		})
+
 	default:
 		logger.Info("Function clicked: ", id)
 	}
-}
-
-func Notify() {
-	notification.Push(&notification.NotificationOptions{
-		AppID:    "Fehmi Endpoint Agent",
-		Title:    "Inventory Complete",
-		Message:  "245 assets synchronized successfully.",
-		IconPath: "assets/fav.ico",
-	})
 }
 
 func LaunchApp(id int) error {

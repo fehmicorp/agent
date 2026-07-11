@@ -1,6 +1,10 @@
 package notification
 
-import "github.com/gen2brain/beeep"
+import (
+	"os"
+
+	"github.com/gen2brain/beeep"
+)
 
 type darwinProvider struct {
 	appID string
@@ -17,9 +21,16 @@ func (d *darwinProvider) Close() error {
 
 func (d *darwinProvider) Push(opt *NotificationOptions) error {
 
+	icon := ""
+
+	if path, err := tempIcon(opt.IconPath); err == nil {
+		defer os.Remove(path)
+		icon = path
+	}
+
 	return beeep.Notify(
 		opt.Title,
 		opt.Message,
-		opt.IconPath,
+		icon,
 	)
 }
