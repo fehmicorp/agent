@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
+	"github.com/fehmicorp/agent/v1/pkg/system/notification"
 	"github.com/fehmicorp/agent/v1/res/assets"
 	"github.com/fehmicorp/agent/v1/res/logger"
 	"github.com/getlantern/systray"
@@ -74,6 +75,15 @@ func handleTrayClick(id int) {
 	default:
 		logger.Info("Function clicked: ", id)
 	}
+}
+
+func Notify() {
+	notification.Push(&notification.NotificationOptions{
+		AppID:    "Fehmi Endpoint Agent",
+		Title:    "Inventory Complete",
+		Message:  "245 assets synchronized successfully.",
+		IconPath: "assets/fav.ico",
+	})
 }
 
 func LaunchApp(id int) error {
