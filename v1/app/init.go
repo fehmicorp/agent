@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	"github.com/fehmicorp/agent/v1/res/assets"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -9,9 +8,7 @@ import (
 )
 
 func Run(title string, w int, h int) error {
-	println("App Version: ", appinfo.Current.Version)
 	a := NewApp()
-
 	return wails.Run(&options.App{
 		Title:  title,
 		Width:  w,

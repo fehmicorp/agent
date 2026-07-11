@@ -52,6 +52,11 @@ func main() {
 			log.Fatal(err)
 		}
 
+	case *clean:
+		if err := wailsBuild(*clean); err != nil {
+			log.Fatal(err)
+		}
+
 	default:
 		fmt.Println()
 		fmt.Println("Nothing to do.")
