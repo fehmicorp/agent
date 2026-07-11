@@ -8,6 +8,7 @@ import (
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	v "github.com/fehmicorp/agent/v1/cmd/version"
+	"github.com/fehmicorp/agent/v1/pkg/system/notification"
 	"github.com/fehmicorp/agent/v1/pkg/system/tray"
 	"github.com/fehmicorp/agent/v1/res/logger"
 )
@@ -32,6 +33,7 @@ func main() {
 		logger.Warn("invalid build type:", v.BuildType)
 	}
 	appinfo.Reload()
+	notification.Register("Fehmi Endpoint Agent")
 	logger.Info("----------------------------------------")
 	logger.Info("Application :", appinfo.Current.Name)
 	logger.Info("Version     :", appinfo.Current.Version)
