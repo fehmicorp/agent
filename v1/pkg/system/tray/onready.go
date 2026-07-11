@@ -20,21 +20,21 @@ var (
 )
 
 func onReady() {
-	if cfg == nil {
+	if Current == nil {
 		logger.Warn("System tray config not loaded")
 		return
 	}
-	icon, err := assets.Read(cfg.Icon)
+	icon, err := assets.Read(Current.Icon)
 	if err == nil {
 		systray.SetIcon(icon)
 	}
-	systray.SetTitle(cfg.Title)
-	systray.SetTooltip(fmt.Sprintf("%s\n%s", cfg.Tooltip, cfg.Version))
-	populateMenu(cfg)
+	systray.SetTitle(Current.Title)
+	systray.SetTooltip(fmt.Sprintf("%s\n%s", Current.Tooltip, Current.Version))
+	populateMenu(Current)
 }
 
-func populateMenu(cfg *Tray) {
-	for _, t := range cfg.Menu {
+func populateMenu(Current *Tray) {
+	for _, t := range Current.Menu {
 		if t.Separator {
 			systray.AddSeparator()
 			continue

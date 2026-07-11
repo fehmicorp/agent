@@ -1,30 +1,22 @@
 package tray
 
-import (
-	"encoding/json"
-	"net/http"
-	"time"
+import "github.com/fehmicorp/agent/v1/cmd/appinfo"
 
-	"github.com/fehmicorp/agent/v1/cmd/appinfo"
-	"github.com/fehmicorp/agent/v1/cmd/config"
-	"github.com/fehmicorp/agent/v1/res/logger"
-)
-
-var cfg *Tray
+var Current *Tray
 
 type Tray struct {
-	Name        string `json:"name"`
-	Title       string `json:"title"`
-	Version     string `json:"version"`
-	Tooltip     string `json:"tooltip"`
-	Icon        string `json:"icon"`
-	ShowVersion bool   `json:"showVersion"`
-	Menu        []Menu `json:"menu"`
+	Name        string `json:"name,omitempty"`
+	Title       string `json:"title,omitempty"`
+	Version     string `json:"version,omitempty"`
+	Tooltip     string `json:"tooltip,omitempty"`
+	Icon        string `json:"icon,omitempty"`
+	ShowVersion bool   `json:"showVersion,omitempty"`
+	Menu        []Menu `json:"menu,omitempty"`
 }
 
 type Menu struct {
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
+	ID        int    `json:"id,omitempty"`
+	Title     string `json:"title,omitempty"`
 	Tooltip   string `json:"tooltip,omitempty"`
 	FuncId    int    `json:"functionId,omitempty"`
 	Icon      string `json:"icon,omitempty"`
@@ -33,30 +25,21 @@ type Menu struct {
 	Enabled   bool   `json:"enabled,omitempty"`
 }
 
-func LoadTrayConfig() {
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
-	cfg = &Tray{
+type TrayResponse struct {
+	Status string `json:"status"`
+	Data   struct {
+		Tray []Menu `json:"tray"`
+	} `json:"data"`
+}
+
+func DefaultTray() *Tray {
+	return &Tray{
 		Name:        "fehmi-tray-v1",
 		Title:       "Fehmi Agent",
 		Version:     appinfo.Current.Version,
 		Tooltip:     appinfo.Current.Name,
 		Icon:        "fav.ico",
 		ShowVersion: true,
+		Menu:        []Menu{},
 	}
-	resp, err := client.Get(config.URI.API)
-	if err != nil {
-		logger.Error("Failed to fetch tray config: ", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		logger.Error("server returned status: ", resp.StatusCode)
-	}
-	var result TrayResponse
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		logger.Error("Invalid JSON:", err)
-	}
-	cfg.Menu = result.Data.Tray
-	logger.Info("Loaded tray menu items: ", len(cfg.Menu))
 }

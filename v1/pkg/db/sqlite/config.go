@@ -16,6 +16,10 @@ type SQLiteStore struct {
 	table  string
 }
 
+func (s *SQLiteStore) DB() *sql.DB {
+	return s.db
+}
+
 type TblQuery struct {
 	Key        string `json:"key"`        // Column Name (e.g., "id", "device_token")
 	Type       string `json:"type"`       // Data Type (e.g., "TEXT", "INTEGER")
