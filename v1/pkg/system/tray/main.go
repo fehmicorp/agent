@@ -4,7 +4,7 @@ import (
 	"github.com/getlantern/systray"
 )
 
-func main() {
+func RunTray() {
 	LoadTrayConfig()
 	systray.Run(onReady, onExit)
 }
