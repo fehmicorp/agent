@@ -1,12 +1,56 @@
 package appinfo
 
 import (
+	"os"
+	"path/filepath"
+	"runtime"
 	"time"
 
 	v "github.com/fehmicorp/agent/v1/cmd/version"
 )
 
 type Mode string
+
+type DirStruct struct {
+	Base      string
+	Installer string
+	App       string
+	Logs      string
+	Config    string
+	Data      string
+}
+
+var Dir = &DirStruct{}
+
+func InitDirectories() error {
+	exe, err := os.Executable()
+	if err != nil {
+		return err
+	}
+
+	Dir.Base = filepath.Dir(exe)
+
+	switch runtime.GOOS {
+	case "windows":
+		Dir.Installer = Dir.Base
+		Dir.App = filepath.Join(Dir.Base, "app.exe")
+
+	case "darwin":
+		// Inside MyApp.app/Contents/MacOS
+		Dir.Installer = filepath.Dir(filepath.Dir(Dir.Base))
+		Dir.App = filepath.Join(Dir.Base, "app")
+
+	case "linux":
+		Dir.Installer = Dir.Base
+		Dir.App = filepath.Join(Dir.Base, "app")
+	}
+
+	Dir.Logs = filepath.Join(Dir.Base, "logs")
+	Dir.Config = filepath.Join(Dir.Base, "config")
+	Dir.Data = filepath.Join(Dir.Base, "data")
+
+	return nil
+}
 
 const (
 	Development Mode = "development"

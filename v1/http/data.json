@@ -4,17 +4,29 @@
       "id":1,
       "title": "Dashboard",
       "tooltip": "Show Agent Dashboard",
+      "icon": "dashboard",
       "functionId": 1001,
       "enabled": true,
       "visible": true
     },
     {
-      "sperator": true
+      "id":2,
+      "title": "Scan",
+      "tooltip": "Run Inventory Scan",
+      "icon": "scan",
+      "functionId": 1002,
+      "enabled": true,
+      "visible": true
+    },
+    {
+      "separator": true
     },
     {
       "id": 9999,
       "title": "Exit",
+      "tooltip": "Close Agent",
       "functionId": 9999,
+      "icon": "exit",
       "enabled": true,
       "visible": true
     }

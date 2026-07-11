@@ -8,6 +8,7 @@ import (
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	v "github.com/fehmicorp/agent/v1/cmd/version"
+	"github.com/fehmicorp/agent/v1/pkg/system/tray"
 	"github.com/fehmicorp/agent/v1/res/logger"
 )
 
@@ -37,6 +38,7 @@ func main() {
 	logger.Info("Build Type  :", appinfo.Current.BuildType)
 	logger.Info("Build Date  :", appinfo.Current.Build)
 	logger.Info("----------------------------------------")
+	tray.RunTray()
 	// switch {
 	// case *dev:
 	// 	if err := WailsDev(); err != nil {
