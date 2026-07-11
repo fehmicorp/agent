@@ -6,30 +6,24 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"strings"
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	v "github.com/fehmicorp/agent/v1/cmd/version"
 )
 
 func main() {
-
-	version := flag.String("v", v.Version, "Version")
-	buildType := flag.String("buildtype", v.BuildType, "development|beta|stable")
-
 	dev := flag.Bool("dev", false, "Run Wails development")
 	build := flag.Bool("build", false, "Build Wails application")
 	clean := flag.Bool("clean", true, "Clean build output")
-
 	flag.Parse()
-
-	// ------------------------------------------------------------------
-	// Apply CLI values
-	// ------------------------------------------------------------------
-
-	v.Version = strings.TrimSpace(*version)
-	println("Version: ", strings.TrimSpace(*version))
-	v.BuildType = strings.ToLower(strings.TrimSpace(*buildType))
+	switch {
+	case *dev:
+		v.BuildType = "development"
+	case *build:
+		v.BuildType = "beta"
+	case *clean:
+		v.BuildType = "stable"
+	}
 
 	switch v.BuildType {
 	case "development", "beta", "stable":
