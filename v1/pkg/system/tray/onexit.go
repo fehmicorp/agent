@@ -1,0 +1,5 @@
+package tray
+
+func onExit() {
+
+}

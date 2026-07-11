@@ -1,0 +1,22 @@
+{
+  "tray":[
+    {
+      "id":1,
+      "title": "Dashboard",
+      "tooltip": "Show Agent Dashboard",
+      "functionId": 1001,
+      "enabled": true,
+      "visible": true
+    },
+    {
+      "sperator": true
+    },
+    {
+      "id": 9999,
+      "title": "Exit",
+      "functionId": 9999,
+      "enabled": true,
+      "visible": true
+    }
+  ]
+}

@@ -3,15 +3,16 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 
 	"github.com/fehmicorp/agent/v1/cmd/appinfo"
 	v "github.com/fehmicorp/agent/v1/cmd/version"
+	"github.com/fehmicorp/agent/v1/res/logger"
 )
 
 func main() {
+	logger.Init("", "")
 	dev := flag.Bool("dev", false, "Run Wails development")
 	build := flag.Bool("build", false, "Build Wails application")
 	clean := flag.Bool("clean", true, "Clean build output")
@@ -24,51 +25,35 @@ func main() {
 	case *clean:
 		v.BuildType = "stable"
 	}
-
 	switch v.BuildType {
 	case "development", "beta", "stable":
 	default:
-		log.Fatalf("invalid build type: %s", v.BuildType)
+		logger.Warn("invalid build type:", v.BuildType)
 	}
-
 	appinfo.Reload()
-
-	fmt.Println("----------------------------------------")
-	fmt.Println("Application :", appinfo.Current.Name)
-	fmt.Println("Version     :", appinfo.Current.Version)
-	fmt.Println("Build Type  :", appinfo.Current.BuildType)
-	fmt.Println("Build Date  :", appinfo.Current.Build)
-	fmt.Println("----------------------------------------")
-
-	switch {
-
-	case *dev:
-		if err := wailsDev(); err != nil {
-			log.Fatal(err)
-		}
-
-	case *build:
-		if err := wailsBuild(*clean); err != nil {
-			log.Fatal(err)
-		}
-
-	case *clean:
-		if err := wailsBuild(*clean); err != nil {
-			log.Fatal(err)
-		}
-
-	default:
-		fmt.Println()
-		fmt.Println("Nothing to do.")
-		fmt.Println()
-		fmt.Println("Examples:")
-		fmt.Println("  go run . -dev")
-		fmt.Println("  go run . -build")
-		fmt.Println("  go run . -build -version=1.2.1 -buildtype=stable")
-	}
+	logger.Info("----------------------------------------")
+	logger.Info("Application :", appinfo.Current.Name)
+	logger.Info("Version     :", appinfo.Current.Version)
+	logger.Info("Build Type  :", appinfo.Current.BuildType)
+	logger.Info("Build Date  :", appinfo.Current.Build)
+	logger.Info("----------------------------------------")
+	// switch {
+	// case *dev:
+	// 	if err := WailsDev(); err != nil {
+	// 		logger.Fatal(err)
+	// 	}
+	// case *build:
+	// 	if err := WailsBuild(*clean); err != nil {
+	// 		logger.Fatal(err)
+	// 	}
+	// case *clean:
+	// 	if err := WailsBuild(*clean); err != nil {
+	// 		logger.Fatal(err)
+	// 	}
+	// }
 }
 
-func wailsDev() error {
+func WailsDev() error {
 
 	args := []string{
 		"dev",
@@ -90,7 +75,7 @@ func wailsDev() error {
 	return cmd.Run()
 }
 
-func wailsBuild(clean bool) error {
+func WailsBuild(clean bool) error {
 
 	args := []string{
 		"build",
